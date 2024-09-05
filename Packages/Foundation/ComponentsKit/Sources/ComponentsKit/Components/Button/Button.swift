@@ -1,22 +1,47 @@
 import UIKit
 
 public final class Button: UIButton {
+    // MARK: - Properties
+    
     private let style: Button.Style
     private let size: Button.Size
+    private let title: String
 
-    public init(style: Button.Style, size: Button.Size, title: String? = nil) {
+    // MARK: - Initializer
+
+    public init(
+        style: Button.Style,
+        size: Button.Size,
+        title: String
+    ) {
         self.style = style
         self.size = size
+        self.title = title
 
         super.init(frame: .zero)
 
-        setTitle(title, for: .normal)
         setupViewStyle()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Methods
+
+    public override var isEnabled: Bool {
+        didSet {
+            setupState()
+        }
+    }
+
+    public func setRightImage(_ image: UIImage?) {
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(imageView)
+        imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Spacing.lg).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
     private func setupViewStyle() {
@@ -29,45 +54,55 @@ public final class Button: UIButton {
     private func setupSize() {
         switch size {
         case .medium:
-            layer.cornerRadius = 16
-            titleLabel?.font = .boldSystemFont(ofSize: 16)
+            let attributedTitle = NSAttributedString(string: title, attributes: [
+                .font: UIFont.bold(size: .x16) as Any
+            ])
+            setAttributedTitle(attributedTitle, for: .normal)
+            layer.cornerRadius = Border.CornerRadius.lg
             heightAnchor.constraint(equalToConstant: 64).isActive = true
 
         case .small:
-            layer.cornerRadius = 12
-            titleLabel?.font = .boldSystemFont(ofSize: 14)
+            let attributedTitle = NSAttributedString(string: title, attributes: [
+                .font: UIFont.bold(size: .x14) as Any
+            ])
+            setAttributedTitle(attributedTitle, for: .normal)
+            layer.cornerRadius = Border.CornerRadius.md
             heightAnchor.constraint(equalToConstant: 48).isActive = true
         }
     }
 
     private func setupStyle() {
-        var config = UIButton.Configuration.borderless()
-
         switch style {
         case .primaryLight:
-            config.titleAlignment = .trailing
-            config.titlePadding = 0
-            config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0)
             backgroundColor = Color.white
             setTitleColor(Color.primaryMain, for: .normal)
-            contentHorizontalAlignment = .left
+            tintColor = Color.primaryMain
+            titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.lg).isActive = true
 
         case .primaryDark:
-            config.titleAlignment = .trailing
-            config.titlePadding = 0
-            config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0)
-            setTitleColor(Color.white, for: .normal)
-            contentHorizontalAlignment = .left
             backgroundColor = Color.primaryMain
+            setTitleColor(Color.white, for: .normal)
+            tintColor = Color.white
+            titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.lg).isActive = true
 
         case .secondaryDark:
             setTitleColor(Color.white, for: .normal)
+            tintColor = Color.white
             backgroundColor = Color.primaryMain
 
         case .secondaryLight:
             break
         }
+    }
 
-        configuration = config
+    private func setupState() {
+        if isEnabled {
+            setupStyle()
+        } else {
+            backgroundColor = Color.gray2
+            tintColor = Color.white
+        }
     }
 }

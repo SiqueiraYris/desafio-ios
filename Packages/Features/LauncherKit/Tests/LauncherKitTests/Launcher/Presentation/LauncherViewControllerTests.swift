@@ -6,7 +6,7 @@ final class LauncherViewControllerTests: XCTestCase {
     // MARK: - Tests
 
     func test_init_shouldInitializeComponentsCorrectly() {
-        let (sut, viewModelSpy) = makeSUT()
+        let (sut, _) = makeSUT()
         let mirror = makeMirror(viewController: sut)
 
         XCTAssertFalse(mirror.logoImageView!.translatesAutoresizingMaskIntoConstraints)

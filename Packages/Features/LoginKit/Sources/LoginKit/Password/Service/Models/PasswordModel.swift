@@ -1,0 +1,1 @@
+struct PasswordModel: Decodable, Equatable { }

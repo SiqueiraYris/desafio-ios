@@ -1,5 +1,6 @@
 import UIKit
 import RouterKit
+import LoginKit
 
 final class LoginRouteDescriptor: RouteDescriptor {
     init() {}
@@ -8,5 +9,7 @@ final class LoginRouteDescriptor: RouteDescriptor {
         return url.host == RouterPaths.login
     }
 
-    func start(url: URL, on navigator: UINavigationController?) { }
+    func start(url: URL, on navigator: UINavigationController?) {
+        LoginComposer.startScene(navigator)
+    }
 }

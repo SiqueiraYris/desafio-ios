@@ -31,11 +31,15 @@ final class LauncherViewController: UIViewController {
         return label
     }()
 
-    private let primaryButton = Button(
-        style: .primaryLight,
-        size: .medium,
-        title: Strings.primaryButtonTitle
-    )
+    private let primaryButton: Button = {
+        let button = Button(
+            style: .primaryLight,
+            size: .medium,
+            title: Strings.primaryButtonTitle
+        )
+        button.setRightImage(Images.arrowRight)
+        return button
+    }()
 
     private let secondaryButton = Button(
         style: .secondaryDark,
@@ -62,10 +66,20 @@ final class LauncherViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Life Cycle
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.isNavigationBarHidden = true
+    }
+
     // MARK: - Methods
 
     private func setupViewStyle() {
         view.backgroundColor = Color.primaryMain
+
+        secondaryButton.addTarget(self, action: #selector(didTapSecondaryButton), for: .touchUpInside)
 
         setupViewHierarchy()
         setupViewConstraints()
@@ -110,5 +124,11 @@ final class LauncherViewController: UIViewController {
             secondaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
                                                     constant: -Spacing.md)
         ])
+    }
+
+    // MARK: - Actions
+
+    @objc private func didTapSecondaryButton() {
+        viewModel.openLogin()
     }
 }

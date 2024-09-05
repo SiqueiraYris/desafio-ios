@@ -5,7 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "LoginKit",
-    defaultLocalization: LanguageTag(stringLiteral: "pt"),
     platforms: [.iOS(.v15)],
     products: [
         .library(
@@ -13,9 +12,22 @@ let package = Package(
             targets: ["LoginKit"]
         )
     ],
+    dependencies: [
+        .package(path: "../RouterKit"),
+        .package(path: "../ComponentsKit")
+    ],
     targets: [
         .target(
-            name: "LoginKit"),
+            name: "LoginKit",
+            dependencies: [
+                "RouterKit",
+                "ComponentsKit"
+            ],
+            resources: [
+                .process("Utils/Resources/Strings/"),
+//                .process("Utils/Resources/Images/")
+            ]
+        ),
         .testTarget(
             name: "LoginKitTests",
             dependencies: ["LoginKit"]
