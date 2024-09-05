@@ -26,10 +26,9 @@ public extension UIViewController {
         navigationController?.navigationBar.tintColor = Color.primaryMain
     }
 
-    func setupDismissKeyboard() {
+    func setupDismissKeyboard(cancelsTouchesInView: Bool = true) {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapDismissKeyboard))
-        tapRecognizer.cancelsTouchesInView = false
-
+        tapRecognizer.cancelsTouchesInView = cancelsTouchesInView
         view.addGestureRecognizer(tapRecognizer)
     }
 
@@ -72,4 +71,44 @@ public extension UIViewController {
     }
 
     @objc open func animateKeyboard(withHeight height: CGFloat, showingKeyboard: Bool) { }
+
+    private static let loaderTag = 999
+
+    func showLoader() {
+        guard let window = UIApplication.shared.keyWindow else { return }
+
+        if window.viewWithTag(UIViewController.loaderTag) != nil {
+            return
+        }
+
+        let loaderView = UIView()
+        loaderView.backgroundColor = Color.gray1.withAlphaComponent(0.2)
+        loaderView.tag = UIViewController.loaderTag
+        loaderView.translatesAutoresizingMaskIntoConstraints = false
+
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = Color.primaryMain
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.startAnimating()
+
+        loaderView.addSubview(activityIndicator)
+        window.addSubview(loaderView)
+
+        NSLayoutConstraint.activate([
+            loaderView.topAnchor.constraint(equalTo: window.topAnchor),
+            loaderView.leadingAnchor.constraint(equalTo: window.leadingAnchor),
+            loaderView.trailingAnchor.constraint(equalTo: window.trailingAnchor),
+            loaderView.bottomAnchor.constraint(equalTo: window.bottomAnchor),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: loaderView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: loaderView.centerYAnchor)
+        ])
+    }
+
+    func hideLoader() {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        if let loaderView = window.viewWithTag(UIViewController.loaderTag) {
+            loaderView.removeFromSuperview()
+        }
+    }
 }

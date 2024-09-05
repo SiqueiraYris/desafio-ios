@@ -5,6 +5,7 @@ final class PasswordCoordinatorSpy: PasswordCoordinatorProtocol {
 
     enum Message: Equatable {
         case openStatement
+        case showErrorAlert(message: String)
     }
 
     var receivedMessages = [Message]()
@@ -13,5 +14,9 @@ final class PasswordCoordinatorSpy: PasswordCoordinatorProtocol {
 
     func openStatement() {
         receivedMessages.append(.openStatement)
+    }
+
+    func showErrorAlert(with message: String, retryAction: @escaping () -> Void) {
+        receivedMessages.append(.showErrorAlert(message: message))
     }
 }

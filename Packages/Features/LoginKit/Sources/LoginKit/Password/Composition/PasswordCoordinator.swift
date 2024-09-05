@@ -3,6 +3,7 @@ import RouterKit
 
 protocol PasswordCoordinatorProtocol {
     func openStatement()
+    func showErrorAlert(with message: String, retryAction: @escaping () -> Void)
 }
 
 final class PasswordCoordinator: PasswordCoordinatorProtocol {
@@ -28,5 +29,25 @@ final class PasswordCoordinator: PasswordCoordinatorProtocol {
         if let url = URL(string: RouterURLs.statement) {
             router.start(url: url, on: navigation)
         }
+    }
+
+    func showErrorAlert(with message: String, retryAction: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: Strings.errorGenericTitle,
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+            title: Strings.tryAgainButton,
+            style: .default
+        ) { _ in
+            retryAction()
+        })
+        alert.addAction(UIAlertAction(
+            title: Strings.closeButton,
+            style: .cancel
+        ))
+
+        navigation?.present(alert, animated: true, completion: nil)
     }
 }

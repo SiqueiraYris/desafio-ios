@@ -16,9 +16,9 @@ final class PasswordViewModel: PasswordViewModelProtocol {
     private let service: PasswordServiceProtocol
     private let storage: PasswordStorageProviderProtocol
     private let document: String
+    private var password = ""
 
     var isLoading = Dynamic(false)
-
     var isButtonEnabled: Dynamic<Bool> = Dynamic(false)
     var updatedDocument: Dynamic<String?> = Dynamic(nil)
 
@@ -53,20 +53,23 @@ final class PasswordViewModel: PasswordViewModelProtocol {
 
     func login(password: String?) {
         guard let password else { return }
-
+        self.password = password
         isLoading.value = true
 
         let route = PasswordServiceRoute.login(document: document, password: password)
         service.makeLogin(route: route) { [weak self] result in
-            self?.isLoading.value = false
+            guard let self else { return }
+            self.isLoading.value = false
 
             switch result {
             case let .success(loginModel):
-                self?.storage.saveToken(token: loginModel.token)
-                self?.coordinator.openStatement()
+                self.storage.saveToken(token: loginModel.token)
+                self.coordinator.openStatement()
 
             case let .failure(responseError):
-                print("erro")
+                self.coordinator.showErrorAlert(with: responseError.responseErrorMessage) {
+                    self.login(password: self.password)
+                }
             }
         }
     }

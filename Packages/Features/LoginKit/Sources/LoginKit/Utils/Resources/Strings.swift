@@ -8,4 +8,7 @@ struct Strings {
     static let passwordButtonTitle = String(localized: "password.primary.button.title", bundle: .module, comment: nil)
     static let passwordNavigationTitle = String(localized: "password.navigation.title", bundle: .module, comment: nil)
     static let passwordTertiaryButtonTitle = String(localized: "password.tertiary.button.title", bundle: .module, comment: nil)
+    static let tryAgainButton = String(localized: "error.try.again.button", bundle: .module, comment: nil)
+    static let errorGenericTitle = String(localized: "error.generic.title", bundle: .module, comment: nil)
+    static let closeButton = String(localized: "error.close.button", bundle: .module, comment: nil)
 }

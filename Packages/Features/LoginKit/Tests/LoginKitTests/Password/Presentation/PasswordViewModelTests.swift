@@ -1,5 +1,6 @@
 import XCTest
 import DynamicKit
+import NetworkKit
 @testable import LoginKit
 
 final class PasswordViewModelTests: XCTestCase {
@@ -43,6 +44,20 @@ final class PasswordViewModelTests: XCTestCase {
 
         XCTAssertEqual(serviceSpy.receivedMessages, [.makeLogin(route: .login(document: document, password: password))])
         XCTAssertEqual(coordinatorSpy.receivedMessages, [.openStatement])
+        XCTAssertFalse(sut.isLoading.value)
+    }
+
+    func test_login_withValidPasswordButReceiveSomeError_shouldOpensAlert() {
+        let document = "12345678909"
+        let password = "123456"
+        let error = ResponseError.fixture()
+        let (sut, serviceSpy, coordinatorSpy, _) = makeSUT(document: document)
+
+        serviceSpy.completeWithError(error: error)
+        sut.login(password: password)
+
+        XCTAssertEqual(serviceSpy.receivedMessages, [.makeLogin(route: .login(document: document, password: password))])
+        XCTAssertEqual(coordinatorSpy.receivedMessages, [.showErrorAlert(message: error.responseErrorMessage)])
         XCTAssertFalse(sut.isLoading.value)
     }
 

@@ -91,6 +91,10 @@ final class PasswordViewController: UIViewController {
     }
 
     private func setupBindings() {
+        viewModel.isLoading.bind { [weak self] isLoading in
+            isLoading ? self?.showLoader() : self?.hideLoader()
+        }
+
         viewModel.isButtonEnabled.bind { [weak self] isEnabled in
             self?.primaryButton.isEnabled = isEnabled
         }
