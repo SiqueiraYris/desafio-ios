@@ -1,0 +1,1 @@
+struct ReceiptModel: Decodable, Equatable { }

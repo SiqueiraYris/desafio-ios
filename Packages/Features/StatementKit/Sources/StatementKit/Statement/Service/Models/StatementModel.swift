@@ -1,0 +1,1 @@
+struct StatementModel: Decodable, Equatable { }

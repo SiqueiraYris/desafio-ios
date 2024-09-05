@@ -12,9 +12,26 @@ let package = Package(
             targets: ["StatementKit"]
         )
     ],
+    dependencies: [
+        .package(path: "../ComponentsKit"),
+        .package(path: "../DynamicKit"),
+        .package(path: "../NetworkKit"),
+        .package(path: "../StorageKit")
+    ],
     targets: [
         .target(
-            name: "StatementKit"),
+            name: "StatementKit",
+            dependencies: [
+                "ComponentsKit",
+                "DynamicKit",
+                "NetworkKit",
+                "StorageKit"
+            ],
+            resources: [
+                .process("Utils/Resources/Strings/"),
+                .process("Utils/Resources/Images/")
+            ]
+        ),
         .testTarget(
             name: "StatementKitTests",
             dependencies: ["StatementKit"]

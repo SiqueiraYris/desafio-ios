@@ -30,7 +30,8 @@ let package = Package(
                 "StorageKit"
             ],
             resources: [
-                .process("Utils/Resources/Strings/")
+                .process("Utils/Resources/Strings/"),
+                .process("Utils/Resources/Images/")
             ]
         ),
         .testTarget(

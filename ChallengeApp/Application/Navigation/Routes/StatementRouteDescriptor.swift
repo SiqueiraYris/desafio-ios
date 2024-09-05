@@ -1,5 +1,6 @@
 import UIKit
 import RouterKit
+import StatementKit
 
 final class StatementRouteDescriptor: RouteDescriptor {
     init() {}
@@ -8,5 +9,7 @@ final class StatementRouteDescriptor: RouteDescriptor {
         return url.host == RouterPaths.statement
     }
 
-    func start(url: URL, on navigator: UINavigationController?) { }
+    func start(url: URL, on navigator: UINavigationController?) { 
+        StatementComposer.startScene(navigator)
+    }
 }
