@@ -16,7 +16,8 @@ let package = Package(
         .package(path: "../RouterKit"),
         .package(path: "../ComponentsKit"),
         .package(path: "../DynamicKit"),
-        .package(path: "../NetworkKit")
+        .package(path: "../NetworkKit"),
+        .package(path: "../StorageKit")
     ],
     targets: [
         .target(
@@ -25,7 +26,8 @@ let package = Package(
                 "RouterKit",
                 "ComponentsKit",
                 "DynamicKit",
-                "NetworkKit"
+                "NetworkKit",
+                "StorageKit"
             ],
             resources: [
                 .process("Utils/Resources/Strings/")
