@@ -44,6 +44,50 @@
           }
         }
       }
+    },
+    "password.navigation.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login Cora"
+          }
+        }
+      }
+    },
+    "password.primary.button.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próximo"
+          }
+        }
+      }
+    },
+    "password.tertiary.button.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esqueci minha senha"
+          }
+        }
+      }
+    },
+    "password.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite sua senha de acesso"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -4,5 +4,6 @@ extension Button {
     public enum Size {
         case medium
         case small
+        case extraSmall
     }
 }

@@ -1,22 +1,14 @@
 import Foundation
 
 public struct Spacing {
-    /// `$xxxs` - `2px`
-    public static let xxxs = CGFloat(2)
-    /// `$xxs` - `4px`
-    public static let xxs = CGFloat(4)
-    /// `$xs` - `8px`
-    public static let xs = CGFloat(8)
-    /// `$sm` - `12px`
-    public static let sm = CGFloat(12)
-    /// `$md` - `16px`
-    public static let md = CGFloat(16)
-    /// `$lg` - `24px`
-    public static let lg = CGFloat(24)
-    /// `$xl` - `32px`
-    public static let xl = CGFloat(32)
-    /// `$xxl` - `64px`
-    public static let xxl = CGFloat(64)
-    /// `$xxxl` - `96px`
-    public static let xxxl = CGFloat(96)
+    public static let x2 = CGFloat(2)
+    public static let x4 = CGFloat(4)
+    public static let x8 = CGFloat(8)
+    public static let x12 = CGFloat(12)
+    public static let x16 = CGFloat(16)
+    public static let x24 = CGFloat(24)
+    public static let x32 = CGFloat(32)
+    public static let x48 = CGFloat(48)
+    public static let x64 = CGFloat(64)
+    public static let x96 = CGFloat(96)
 }

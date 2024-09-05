@@ -1,12 +1,15 @@
 import NetworkKit
 
-enum PasswordServiceResult {
-    case success(PasswordModel)
+enum PasswordServiceResult: Equatable {
+    case success(LoginModel)
     case failure(ResponseError)
 }
 
 protocol PasswordServiceProtocol {
-    func fetch(route: PasswordServiceRoute, completion: @escaping (PasswordServiceResult) -> Void)
+    func makeLogin(
+        route: PasswordServiceRoute,
+        completion: @escaping (PasswordServiceResult) -> Void
+    )
 }
 
 final class PasswordService: PasswordServiceProtocol {
@@ -22,29 +25,29 @@ final class PasswordService: PasswordServiceProtocol {
 
     // MARK: - Methods
 
-    func fetch(route: PasswordServiceRoute,
-               completion: @escaping (PasswordServiceResult) -> Void) {
-//        manager.request(with: route.config) { [weak self] managerResult in
-//            guard self != nil else { return }
-//
-//            switch managerResult {
-//            case let .success(data):
-//                let serviceResult = ResultMapper.map(data, to: PasswordModel.self)
-//
-//                switch serviceResult {
-//                case .success(let response as PasswordModel):
-//                    completion(.success(response))
-//
-//                case .failure(let responseError):
-//                    completion(.failure(responseError))
-//
-//                default:
-//                    completion(.failure(ResponseError(apiError: nil)))
-//                }
-//
-//            case let .failure(responseError):
-//                completion(.failure(responseError))
-//            }
-//        }
+    func makeLogin(route: PasswordServiceRoute,
+                   completion: @escaping (PasswordServiceResult) -> Void) {
+        manager.request(with: route.config) { [weak self] managerResult in
+            guard self != nil else { return }
+
+            switch managerResult {
+            case let .success(data):
+                let serviceResult = DefaultResultMapper.map(data, to: LoginModel.self)
+
+                switch serviceResult {
+                case let.success(response as LoginModel):
+                    completion(.success(response))
+
+                case let .failure(responseError):
+                    completion(.failure(responseError))
+
+                default:
+                    completion(.failure(ResponseError(error: .unknownFailure)))
+                }
+
+            case let .failure(responseError):
+                completion(.failure(responseError))
+            }
+        }
     }
 }

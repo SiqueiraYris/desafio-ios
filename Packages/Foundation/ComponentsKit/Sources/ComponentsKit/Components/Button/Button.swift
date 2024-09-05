@@ -40,7 +40,7 @@ public final class Button: UIButton {
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-        imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Spacing.lg).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Spacing.x24).isActive = true
         imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
@@ -68,6 +68,13 @@ public final class Button: UIButton {
             setAttributedTitle(attributedTitle, for: .normal)
             layer.cornerRadius = Border.CornerRadius.md
             heightAnchor.constraint(equalToConstant: 48).isActive = true
+
+        case .extraSmall:
+            let attributedTitle = NSAttributedString(string: title, attributes: [
+                .font: UIFont.regular(size: .x14) as Any
+            ])
+            setAttributedTitle(attributedTitle, for: .normal)
+            heightAnchor.constraint(equalToConstant: 20).isActive = true
         }
     }
 
@@ -78,22 +85,25 @@ public final class Button: UIButton {
             setTitleColor(Color.primaryMain, for: .normal)
             tintColor = Color.primaryMain
             titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.lg).isActive = true
+            titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.x24).isActive = true
 
         case .primaryDark:
             backgroundColor = Color.primaryMain
             setTitleColor(Color.white, for: .normal)
             tintColor = Color.white
             titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.lg).isActive = true
+            titleLabel?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Spacing.x24).isActive = true
 
         case .secondaryDark:
             setTitleColor(Color.white, for: .normal)
             tintColor = Color.white
             backgroundColor = Color.primaryMain
 
-        case .secondaryLight:
-            break
+        case .tertiaryLight:
+            backgroundColor = Color.white
+            setTitleColor(Color.primaryMain, for: .normal)
+            tintColor = Color.primaryMain
+            contentHorizontalAlignment = .leading
         }
     }
 

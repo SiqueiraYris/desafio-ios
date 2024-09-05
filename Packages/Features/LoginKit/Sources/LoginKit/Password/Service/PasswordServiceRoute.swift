@@ -1,18 +1,24 @@
 import NetworkKit
 
-enum PasswordServiceRoute {
-    case prepare
+enum PasswordServiceRoute: Equatable {
+    case login(document: String, password: String)
 
     var config: RequestConfigProtocol {
         switch self {
-        case .prepare:
-            return setupRequest()
+        case let .login(document, password):
+            return setupRequest(document: document, password: password)
         }
     }
 
-    private func setupRequest() -> RequestConfigProtocol {
-        let config = RequestConfig(path: "",
-                                   method: .get)
+    private func setupRequest(document: String, password: String) -> RequestConfigProtocol {
+        let parameters = ["cpf": document,
+                          "password": password]
+        let config = RequestConfig(
+            path: "/challenge/auth",
+            method: .post,
+            encoding: .body,
+            parameters: parameters
+        )
         return config
     }
 }

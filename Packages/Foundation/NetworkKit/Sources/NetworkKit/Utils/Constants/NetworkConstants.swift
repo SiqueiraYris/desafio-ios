@@ -20,4 +20,9 @@ public struct Constants {
         guard let scheme = configurationJson?["networkScheme"] as? String else { return "" }
         return scheme
     }()
+
+    public static var apiKey: String = {
+        guard let apiKey = configurationJson?["networkApiKey"] as? String else { return "" }
+        return apiKey
+    }()
 }

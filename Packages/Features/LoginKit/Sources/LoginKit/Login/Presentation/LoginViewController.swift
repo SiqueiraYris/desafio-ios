@@ -5,13 +5,13 @@ final class LoginViewController: UIViewController {
     // MARK: - Views
 
     private let titleLabel: Label = {
-        let label = Label(text: Strings.title, font: .regular(size: .x16))
+        let label = Label(text: Strings.loginTitle, font: .regular(size: .x16))
         label.textColor = Color.gray1
         return label
     }()
 
     private let subtitleLabel: Label = {
-        let label = Label(text: Strings.subtitle, font: .bold(size: .x22))
+        let label = Label(text: Strings.loginSubtitle, font: .bold(size: .x22))
         label.textColor = Color.offBlack
         return label
     }()
@@ -30,7 +30,7 @@ final class LoginViewController: UIViewController {
         let button = Button(
             style: .primaryDark,
             size: .small,
-            title: Strings.primaryButtonTitle
+            title: Strings.loginPrimaryButtonTitle
         )
         button.setRightImage(Images.arrowRight)
         button.isEnabled = false
@@ -41,7 +41,7 @@ final class LoginViewController: UIViewController {
 
     private let viewModel: LoginViewModelProtocol
     private var bottomConstraint: NSLayoutConstraint?
-    private let bottomConstraintInitialValue: CGFloat = -Spacing.lg
+    private let bottomConstraintInitialValue: CGFloat = -Spacing.x24
 
     // MARK: - Initializer
 
@@ -93,7 +93,7 @@ final class LoginViewController: UIViewController {
 
     private func setupViewStyle() {
         view.backgroundColor = Color.white
-        title = Strings.navigationTitle
+        title = Strings.loginNavigationTitle
 
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         primaryButton.addTarget(self, action: #selector(didTapPrimaryButton), for: .touchUpInside)
@@ -111,33 +111,33 @@ final class LoginViewController: UIViewController {
 
     private func setupViewConstraints() {
         bottomConstraint = primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                                                 constant: -Spacing.md)
+                                                                 constant: -Spacing.x16)
         bottomConstraint?.isActive = true
 
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                            constant: Spacing.lg),
+                                            constant: Spacing.x24),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                constant: Spacing.lg),
+                                                constant: Spacing.x24),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                 constant: -Spacing.lg),
+                                                 constant: -Spacing.x24),
 
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Spacing.xs),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Spacing.x8),
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                   constant: Spacing.lg),
+                                                   constant: Spacing.x24),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                    constant: -Spacing.lg),
+                                                    constant: -Spacing.x24),
 
-            textField.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: Spacing.xl),
+            textField.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: Spacing.x32),
             textField.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                               constant: Spacing.lg),
+                                               constant: Spacing.x24),
             textField.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                constant: -Spacing.lg),
+                                                constant: -Spacing.x24),
 
             primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                   constant: Spacing.lg),
+                                                   constant: Spacing.x24),
             primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,
-                                                    constant: -Spacing.lg)
+                                                    constant: -Spacing.x24)
         ])
     }
 

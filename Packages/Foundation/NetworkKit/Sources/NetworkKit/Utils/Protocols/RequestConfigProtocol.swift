@@ -45,6 +45,8 @@ extension RequestConfigProtocol {
             request.httpBody = body
         }
 
+        request.setValue(Constants.apiKey, forHTTPHeaderField: "apikey")
+
         request.allHTTPHeaderFields = headers
 
         return request

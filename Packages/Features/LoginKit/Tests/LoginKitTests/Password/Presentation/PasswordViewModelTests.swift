@@ -1,0 +1,83 @@
+import XCTest
+import DynamicKit
+@testable import LoginKit
+
+final class PasswordViewModelTests: XCTestCase {
+    // MARK: - Tests
+
+    func test_validatePassword_withValidPassword_shouldEnableButtonAndUpdateDocument() {
+        let (sut, _, _, _) = makeSUT()
+
+        sut.validatePassword(text: "123456")
+
+        XCTAssertEqual(sut.updatedDocument.value, "123456")
+        XCTAssertTrue(sut.isButtonEnabled.value)
+    }
+
+    func test_validatePassword_withShortPassword_shouldNotEnableButtonAndUpdateDocument() {
+        let (sut, _, _, _) = makeSUT()
+
+        sut.validatePassword(text: "123")
+
+        XCTAssertEqual(sut.updatedDocument.value, "123")
+        XCTAssertFalse(sut.isButtonEnabled.value)
+    }
+
+    func test_validatePassword_withNilText_shouldNotUpdateDocumentAndDisableButton() {
+        let (sut, _, _, _) = makeSUT()
+
+        sut.validatePassword(text: nil)
+
+        XCTAssertNil(sut.updatedDocument.value)
+        XCTAssertFalse(sut.isButtonEnabled.value)
+    }
+
+    func test_login_withValidPassword_shouldCallServiceAndOpenStatement() {
+        let document = "12345678909"
+        let password = "123456"
+        let loginModel = LoginModel(token: "testToken")
+        let (sut, serviceSpy, coordinatorSpy, _) = makeSUT(document: document)
+
+        serviceSpy.completeWithSuccess(object: loginModel)
+        sut.login(password: password)
+
+        XCTAssertEqual(serviceSpy.receivedMessages, [.makeLogin(route: .login(document: document, password: password))])
+        XCTAssertEqual(coordinatorSpy.receivedMessages, [.openStatement])
+        XCTAssertFalse(sut.isLoading.value)
+    }
+
+    func test_login_withNilPassword_shouldNotCallServiceAndNotChangeLoadingState() {
+        let (sut, serviceSpy, _, _) = makeSUT()
+
+        sut.login(password: nil)
+
+        XCTAssertTrue(serviceSpy.receivedMessages.isEmpty)
+        XCTAssertFalse(sut.isLoading.value)
+    }
+
+    // MARK: - Helpers
+
+    private func makeSUT(document: String = "12345678909") -> (
+        sut: PasswordViewModel,
+        serviceSpy: PasswordServiceSpy,
+        coordinatorSpy: PasswordCoordinatorSpy,
+        storageSpy: PasswordStorageProviderSpy
+    ) {
+        let serviceSpy = PasswordServiceSpy()
+        let coordinatorSpy = PasswordCoordinatorSpy()
+        let storageSpy = PasswordStorageProviderSpy()
+        let sut = PasswordViewModel(
+            coordinator: coordinatorSpy,
+            service: serviceSpy,
+            storage: storageSpy,
+            document: document
+        )
+
+        trackForMemoryLeaks(sut)
+        trackForMemoryLeaks(serviceSpy)
+        trackForMemoryLeaks(storageSpy)
+        trackForMemoryLeaks(coordinatorSpy)
+
+        return (sut, serviceSpy, coordinatorSpy, storageSpy)
+    }
+}

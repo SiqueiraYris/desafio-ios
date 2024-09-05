@@ -101,28 +101,28 @@ final class LauncherViewController: UIViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                               constant: Spacing.sm),
-            logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.lg),
+                                               constant: Spacing.x12),
+            logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
             logoImageView.widthAnchor.constraint(equalToConstant: 90),
             logoImageView.heightAnchor.constraint(equalToConstant: 24),
 
-            titleLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: Spacing.md),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.lg),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.lg),
+            titleLabel.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor, constant: Spacing.x16),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.x24),
 
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Spacing.md),
-            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.lg),
-            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.lg),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Spacing.x16),
+            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.x24),
 
-            primaryButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: Spacing.lg),
-            primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.lg),
-            primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.lg),
+            primaryButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: Spacing.x24),
+            primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.x24),
 
-            secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: Spacing.md),
-            secondaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.lg),
-            secondaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.lg),
+            secondaryButton.topAnchor.constraint(equalTo: primaryButton.bottomAnchor, constant: Spacing.x16),
+            secondaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            secondaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.x24),
             secondaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                                    constant: -Spacing.md)
+                                                    constant: -Spacing.x16)
         ])
     }
 

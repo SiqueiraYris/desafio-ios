@@ -10,11 +10,11 @@ final class LoginViewControllerTests: XCTestCase {
         let mirror = makeMirror(viewController: sut)
 
         XCTAssertFalse(mirror.titleLabel!.translatesAutoresizingMaskIntoConstraints)
-        XCTAssertEqual(mirror.titleLabel?.text, Strings.title)
+        XCTAssertEqual(mirror.titleLabel?.text, Strings.loginTitle)
         XCTAssertEqual(mirror.titleLabel?.textColor, Color.gray1)
         XCTAssertEqual(mirror.titleLabel?.font, .regular(size: .x16))
 
-        XCTAssertEqual(mirror.subtitleLabel?.text, Strings.subtitle)
+        XCTAssertEqual(mirror.subtitleLabel?.text, Strings.loginSubtitle)
         XCTAssertEqual(mirror.subtitleLabel?.textColor, Color.offBlack)
         XCTAssertEqual(mirror.subtitleLabel?.font, .bold(size: .x22))
 
@@ -24,7 +24,7 @@ final class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(mirror.textField?.font, .regular(size: .x22))
         XCTAssertEqual(mirror.textField?.keyboardType, .numberPad)
 
-        XCTAssertEqual(mirror.primaryButton?.titleLabel?.text, Strings.primaryButtonTitle)
+        XCTAssertEqual(mirror.primaryButton?.titleLabel?.text, Strings.loginPrimaryButtonTitle)
         XCTAssertFalse(mirror.primaryButton!.isEnabled)
     }
 

@@ -20,7 +20,7 @@ public final class NetworkManager: NetworkManagerProtocol {
 
     public func request(with config: RequestConfigProtocol, completion: @escaping (ResponseResult) -> Void) {
         guard let urlRequest = config.createUrlRequest() else {
-            completion(.failure(ResponseError(defaultError: NetworkError.malformedUrl)))
+            completion(.failure(ResponseError(error: .badRequest)))
             return
         }
         
@@ -54,7 +54,7 @@ public final class NetworkManager: NetworkManagerProtocol {
                 } catch let error as NetworkError {
                     self.genericCatchError(urlRequest: urlRequest, data: data, error: error, config: config, completion: completion)
                 } catch let error as NetworkError.HTTPErrors {
-                    completion(.failure(APIErrorMapper.map(data, httpError: error)))
+                    completion(.failure(ResponseError(error: error)))
                 } catch {
                     self.genericCatchError(urlRequest: urlRequest, data: data, error: NetworkError.unknownFailure, config: config, completion: completion)
                 }
@@ -101,7 +101,8 @@ extension NetworkManager {
     }
 
     private func genericCatchError<R>(urlRequest: URLRequest,
-                                      data: Data?, error: R,
+                                      data: Data?,
+                                      error: R,
                                       config: RequestConfigProtocol,
                                       completion: @escaping (ResponseResult) -> Void) where R: NetworkErrorProtocol {
         if config.debugMode {
@@ -110,9 +111,10 @@ extension NetworkManager {
                            data: data,
                            curl: urlRequest.curlString)
         }
-        completion(.failure(ResponseError(statusCode: error.code,
-                                          data: data,
-                                          defaultError: error)))
+        completion(.failure(ResponseError(
+            statusCode: error.code,
+            message: error.errorDescription
+        )))
     }
 
     /// With this code you can get curl and put this code in postman to test
