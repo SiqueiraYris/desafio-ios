@@ -96,6 +96,7 @@ final class LoginViewController: UIViewController {
         title = Strings.navigationTitle
 
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        primaryButton.addTarget(self, action: #selector(didTapPrimaryButton), for: .touchUpInside)
 
         setupViewHierarchy()
         setupViewConstraints()
@@ -148,5 +149,9 @@ final class LoginViewController: UIViewController {
 
     @objc private func textFieldDidChange(_ textField: UITextField) {
         viewModel.validateDocument(text: textField.text)
+    }
+
+    @objc private func didTapPrimaryButton() {
+        viewModel.openPassword(document: textField.text)
     }
 }

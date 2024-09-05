@@ -9,7 +9,7 @@ final class PasswordCoordinator: PasswordCoordinatorProtocol {
 
     // MARK: - initializer
 
-    init(navigation: UINavigationController) {
+    init(navigation: UINavigationController?) {
         self.navigation = navigation
     }
 

@@ -5,6 +5,7 @@ protocol LoginViewModelProtocol {
     var updatedDocument: Dynamic<String?> { get }
 
     func validateDocument(text: String?)
+    func openPassword(document: String?)
 }
 
 final class LoginViewModel: LoginViewModelProtocol {
@@ -26,17 +27,23 @@ final class LoginViewModel: LoginViewModelProtocol {
     func validateDocument(text: String?) {
         guard let text = text else { return }
 
+        let documentMaxLength = 11
         let cleanedDocument = text.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        let limitedDocument = String(cleanedDocument.prefix(11))
+        let limitedDocument = String(cleanedDocument.prefix(documentMaxLength))
         let formattedDocument = formatDocument(limitedDocument)
 
         updatedDocument.value = formattedDocument
 
-        if limitedDocument.count == 11 && isValidCPF(limitedDocument) {
+        if limitedDocument.count == documentMaxLength && isValidCPF(limitedDocument) {
             isButtonEnabled.value = true
         } else {
             isButtonEnabled.value = false
         }
+    }
+
+    func openPassword(document: String?) {
+        guard let document else { return }
+        coordinator.openPassword(document: document)
     }
 
     private func formatDocument(_ document: String) -> String {

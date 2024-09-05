@@ -14,18 +14,21 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../RouterKit"),
-        .package(path: "../ComponentsKit")
+        .package(path: "../ComponentsKit"),
+        .package(path: "../DynamicKit"),
+        .package(path: "../NetworkKit")
     ],
     targets: [
         .target(
             name: "LoginKit",
             dependencies: [
                 "RouterKit",
-                "ComponentsKit"
+                "ComponentsKit",
+                "DynamicKit",
+                "NetworkKit"
             ],
             resources: [
-                .process("Utils/Resources/Strings/"),
-//                .process("Utils/Resources/Images/")
+                .process("Utils/Resources/Strings/")
             ]
         ),
         .testTarget(

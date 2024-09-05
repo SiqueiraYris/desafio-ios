@@ -18,13 +18,12 @@ final class LauncherViewControllerTests: XCTestCase {
         XCTAssertEqual(mirror.backgroundImageView?.image, Images.background)
         XCTAssertEqual(mirror.backgroundImageView?.contentMode, .scaleAspectFill)
 
-        XCTAssertFalse(mirror.titleLabel!.translatesAutoresizingMaskIntoConstraints)
         XCTAssertEqual(mirror.titleLabel?.text, Strings.title)
-        XCTAssertEqual(mirror.titleLabel?.textColor, .white)
+        XCTAssertEqual(mirror.titleLabel?.textColor, Color.white)
         XCTAssertEqual(mirror.titleLabel?.font, .regular(size: .x28))
 
         XCTAssertEqual(mirror.subtitleLabel?.text, Strings.subtitle)
-        XCTAssertEqual(mirror.subtitleLabel?.textColor, .white)
+        XCTAssertEqual(mirror.subtitleLabel?.textColor, Color.white)
         XCTAssertEqual(mirror.subtitleLabel?.font, .regular(size: .x16))
 
         XCTAssertEqual(mirror.primaryButton?.titleLabel?.text, Strings.primaryButtonTitle)

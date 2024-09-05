@@ -3,6 +3,8 @@ import ComponentsKit
 @testable import LauncherKit
 
 final class LauncherViewControllerMirror: MirrorObject {
+    // MARK: - Properties
+    
     var logoImageView: UIImageView? {
         return extract()
     }
@@ -27,6 +29,8 @@ final class LauncherViewControllerMirror: MirrorObject {
         return extract()
     }
 
+    // MARK: - Initializer
+    
     init(viewController: LauncherViewController) {
         super.init(reflecting: viewController)
     }

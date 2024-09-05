@@ -10,6 +10,7 @@
 		08778935C84491C9F29FBE49 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4A838154F7032D8A523FAD4C /* NetworkKit */; };
 		08814BCC04AB2BF807CA5250 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5BC363F2B322195019DE07 /* LaunchScreen.storyboard */; };
 		1565C54343999A43395DD6E9 /* StatementRouteDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2397394DA93FDDDA140074AE /* StatementRouteDescriptor.swift */; };
+		4D53069B2C897C7A006D660D /* LoginKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4D53069A2C897C7A006D660D /* LoginKit */; };
 		5BD15F7F617F6B7D6056A239 /* AppStarter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F46CA6053834165E81E467 /* AppStarter.swift */; };
 		72156A1EB2D33B03B437B887 /* DescriptorsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F007DCDDC89242435C489F98 /* DescriptorsManager.swift */; };
 		72411635CC975DF88C421E11 /* LoginRouteDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EC8413B80BAC74E13D3DC9 /* LoginRouteDescriptor.swift */; };
@@ -17,7 +18,6 @@
 		7DCE22F039F95426FFD38129 /* StatementKit in Frameworks */ = {isa = PBXBuildFile; productRef = B78EC6EF06334FE4A761D8B6 /* StatementKit */; };
 		8C4FFD68A215B6C0EABC119B /* LauncherRouteDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE5728FA490E8F144FA1356 /* LauncherRouteDescriptor.swift */; };
 		A102F6BCC25B78EF63A74FD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CAAAE4B3B0B88CFC349117 /* SceneDelegate.swift */; };
-		A1939D3317D8952763477EBE /* LoginKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAB3E429A99FE584B4D0DED9 /* LoginKit */; };
 		A5B8F49727864FEA3EDFC315 /* RouterKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93AC31111D8A2E124BBFF1E7 /* RouterKit */; };
 		B43CE42C83D855EB6C9648FB /* DynamicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B5AC25664390CC1F27245130 /* DynamicKit */; };
 		BCAB2644063DC1D7933C3080 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1155776F51D6BD587108A /* AppDelegate.swift */; };
@@ -57,8 +57,8 @@
 				08778935C84491C9F29FBE49 /* NetworkKit in Frameworks */,
 				A5B8F49727864FEA3EDFC315 /* RouterKit in Frameworks */,
 				7A177A1D3B71FF36D2D8F05D /* ComponentsKit in Frameworks */,
-				A1939D3317D8952763477EBE /* LoginKit in Frameworks */,
 				C1580156EB6389494B1F6C64 /* LauncherKit in Frameworks */,
+				4D53069B2C897C7A006D660D /* LoginKit in Frameworks */,
 				7DCE22F039F95426FFD38129 /* StatementKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,6 +83,7 @@
 				7131FD366BA5C8DE221FB84F /* ChallengeApp */,
 				FE52B93FBC3048477978E155 /* Packages */,
 				3D51296ACF46A9490EDF2FA3 /* Products */,
+				4D5306992C897C66006D660D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +102,13 @@
 				6308780D372C5F70B69A295E /* Production.xcconfig */,
 			);
 			path = Environment;
+			sourceTree = "<group>";
+		};
+		4D5306992C897C66006D660D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		50CC4CE0BA446E6C19776BB4 /* Configurations */ = {
@@ -185,9 +193,9 @@
 				4A838154F7032D8A523FAD4C /* NetworkKit */,
 				93AC31111D8A2E124BBFF1E7 /* RouterKit */,
 				86321939128669A71E853EC1 /* ComponentsKit */,
-				AAB3E429A99FE584B4D0DED9 /* LoginKit */,
 				D0EDB3C77203700C5B96D13B /* LauncherKit */,
 				B78EC6EF06334FE4A761D8B6 /* StatementKit */,
+				4D53069A2C897C7A006D660D /* LoginKit */,
 			);
 			productName = ChallengeApp;
 			productReference = FEB1ED77E97F2B341E7CDDF6 /* ChallengeApp.app */;
@@ -487,6 +495,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkKit;
 		};
+		4D53069A2C897C7A006D660D /* LoginKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LoginKit;
+		};
 		86321939128669A71E853EC1 /* ComponentsKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ComponentsKit;
@@ -494,10 +506,6 @@
 		93AC31111D8A2E124BBFF1E7 /* RouterKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RouterKit;
-		};
-		AAB3E429A99FE584B4D0DED9 /* LoginKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = LoginKit;
 		};
 		B5AC25664390CC1F27245130 /* DynamicKit */ = {
 			isa = XCSwiftPackageProductDependency;
