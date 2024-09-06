@@ -14,12 +14,14 @@ final class PasswordServiceTests: XCTestCase {
         sut.makeLogin(route: .login(document: "any-document", password: "any-password")) { _ in }
         manager.completeWithSuccess(result: result)
 
-        XCTAssertEqual(manager.receivedMessages, [.request(result: result)])
+        XCTAssertEqual(manager.receivedMessages, [
+            .setInitialToken(token: "any-token"),
+            .request(result: result)
+        ])
     }
 
     func test_request_whenTheContentIsAnyData_shouldReceiveError() {
         let (sut, manager) = makeSUT()
-        let loginModel = makeLoginModel()
         let error = ResponseError.fixture()
         let result: PasswordServiceResult = .failure(error)
 

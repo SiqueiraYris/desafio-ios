@@ -1,18 +1,18 @@
 import NetworkKit
-@testable import LoginKit
+@testable import StatementKit
 
-final class NetworkManagerSpy: NetworkManagerProtocol {
-    var completionPassed: ((PasswordServiceResult) -> Void)?
+final class ReceiptNetworkManagerSpy: NetworkManagerProtocol {
+    var completionPassed: ((ReceiptServiceResult) -> Void)?
     var result: ResponseResult?
 
     enum Message: Equatable {
-        case request(result: PasswordServiceResult)
+        case request(result: ReceiptServiceResult)
         case setInitialToken(token: String)
     }
 
     var receivedMessages = [Message]()
 
-    func completeWithSuccess(result: PasswordServiceResult) {
+    func completeWithSuccess(result: ReceiptServiceResult) {
         completionPassed?(result)
     }
 

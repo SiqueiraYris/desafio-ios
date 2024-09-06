@@ -29,7 +29,7 @@
 
 #### Providers
 
-- `PasswordTokenManager`: Manages the storage and retrieval of authentication tokens after a successful login. It interacts with the `TokenKit to securely store tokens and provide them when needed for authenticated requests.
+- `PasswordTokenManager`: Manages the storage and retrieval of authentication tokens after a successful login.
 
 #### Service
 

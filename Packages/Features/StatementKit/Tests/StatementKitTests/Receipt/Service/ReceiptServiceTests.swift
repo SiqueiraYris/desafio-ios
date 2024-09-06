@@ -2,17 +2,17 @@ import XCTest
 import NetworkKit
 @testable import StatementKit
 
-final class StatementServiceTests: XCTestCase {
+final class ReceiptServiceTests: XCTestCase {
     // MARK: - Tests
 
     func test_fetch_whenTheContentIsExpectedData_shouldReceiveSuccess() {
         let (sut, networkManager) = makeSUT()
-        let statementModel = StatementModel.fixture()
-        let result: StatementServiceResult = .success(statementModel)
+        let receiptModel = ReceiptModel.fixture()
+        let result: ReceiptServiceResult = .success(receiptModel)
 
-        networkManager.result = .success(makeStatementModelData(model: statementModel))
+        networkManager.result = .success(makeReceiptModelData(model: receiptModel))
 
-        sut.fetch(route: .getTransactions) { _ in }
+        sut.fetch(route: .getDetails(id: "any-id")) { _ in }
         networkManager.completeWithSuccess(result: result)
 
         XCTAssertEqual(networkManager.receivedMessages, [.request(result: result)])
@@ -21,11 +21,11 @@ final class StatementServiceTests: XCTestCase {
     func test_fetch_whenTheContentIsAnyData_shouldReceiveError() {
         let (sut, networkManager) = makeSUT()
         let error = ResponseError.fixture()
-        let result: StatementServiceResult = .failure(error)
+        let result: ReceiptServiceResult = .failure(error)
 
         networkManager.result = .success(makeAnyData())
 
-        sut.fetch(route: .getTransactions) { _ in }
+        sut.fetch(route: .getDetails(id: "any-id")) { _ in }
         networkManager.completeWithError(error: error)
 
         XCTAssertEqual(networkManager.receivedMessages, [.request(result: result)])
@@ -34,11 +34,11 @@ final class StatementServiceTests: XCTestCase {
     func test_fetch_shouldReceiveFailure() {
         let (sut, networkManager) = makeSUT()
         let error = ResponseError.fixture()
-        let result: StatementServiceResult = .failure(error)
+        let result: ReceiptServiceResult = .failure(error)
 
         networkManager.result = .failure(error)
 
-        sut.fetch(route: .getTransactions) { _ in }
+        sut.fetch(route: .getDetails(id: "any-id")) { _ in }
         networkManager.completeWithError(error: error)
 
         XCTAssertEqual(networkManager.receivedMessages, [.request(result: result)])
@@ -46,10 +46,10 @@ final class StatementServiceTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT() -> (sut: StatementService,
-                               networkManager: NetworkManagerSpy) {
-        let networkSpy = NetworkManagerSpy()
-        let sut = StatementService(networkSpy)
+    private func makeSUT() -> (sut: ReceiptService,
+                               networkManager: ReceiptNetworkManagerSpy) {
+        let networkSpy = ReceiptNetworkManagerSpy()
+        let sut = ReceiptService(networkSpy)
 
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(networkSpy)
@@ -57,7 +57,7 @@ final class StatementServiceTests: XCTestCase {
         return (sut, networkSpy)
     }
 
-    private func makeStatementModelData(model: StatementModel) -> Data {
+    private func makeReceiptModelData(model: ReceiptModel) -> Data {
         let encoder = JSONEncoder()
         let data = try! encoder.encode(model)
         return data

@@ -1,6 +1,6 @@
 import NetworkKit
 
-enum ReceiptServiceResult {
+enum ReceiptServiceResult: Equatable {
     case success(ReceiptModel)
     case failure(ResponseError)
 }

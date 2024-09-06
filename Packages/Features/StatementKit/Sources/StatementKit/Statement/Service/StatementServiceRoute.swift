@@ -3,19 +3,18 @@ import NetworkKit
 enum StatementServiceRoute: Equatable {
     case getTransactions
     
-    func config(token: String) -> RequestConfigProtocol {
+    var config: RequestConfigProtocol {
         switch self {
         case .getTransactions:
-            return setupGetTransactionsRequest(token: token)
+            return setupGetTransactionsRequest()
         }
     }
     
-    private func setupGetTransactionsRequest(token: String) -> RequestConfigProtocol {
-        let parameters = ["token": token]
+    private func setupGetTransactionsRequest() -> RequestConfigProtocol {
         let config = RequestConfig(
             path: "/challenge/list",
             method: .get,
-            headers: parameters
+            refreshTokenEnabled: true
         )
         return config
     }

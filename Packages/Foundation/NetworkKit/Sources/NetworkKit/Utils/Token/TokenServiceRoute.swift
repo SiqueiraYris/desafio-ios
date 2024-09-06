@@ -1,5 +1,3 @@
-import NetworkKit
-
 enum TokenServiceRoute: Equatable {
     case refresh(token: String)
 
@@ -16,7 +14,7 @@ enum TokenServiceRoute: Equatable {
             path: "/challenge/auth",
             method: .post,
             encoding: .body,
-            parameters: parameters, debugMode: true
+            parameters: parameters
         )
         return config
     }

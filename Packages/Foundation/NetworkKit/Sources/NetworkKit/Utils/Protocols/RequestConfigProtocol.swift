@@ -8,12 +8,13 @@ public protocol RequestConfigProtocol {
     var parameters: [String: Any] { get set }
     var headers: [String: String] { get }
     var parametersEncoding: ParameterEncoding { get }
-    var debugMode: Bool { get }
     var headerInterceptor: NetworkHeaderInterceptor? { get set }
+    var refreshTokenEnabled: Bool { get }
+    var debugMode: Bool { get }
 }
 
 extension RequestConfigProtocol {
-    func createUrlRequest() -> URLRequest? {
+    func createUrlRequest(with token: String? = nil) -> URLRequest? {
         var urlComponents = URLComponents()
         urlComponents.scheme = scheme
         urlComponents.host = host
@@ -43,6 +44,10 @@ extension RequestConfigProtocol {
 
         if let body = httpBody {
             request.httpBody = body
+        }
+
+        if let token = token {
+            request.setValue(token, forHTTPHeaderField: "token")
         }
 
         request.setValue(Constants.apiKey, forHTTPHeaderField: "apikey")

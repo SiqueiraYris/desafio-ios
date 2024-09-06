@@ -1,4 +1,4 @@
-import TokenKit
+@testable import NetworkKit
 
 final class TokenManagerSpy: TokenManagerProtocol {
     // MARK: - Properties
@@ -6,10 +6,12 @@ final class TokenManagerSpy: TokenManagerProtocol {
     enum Message: Equatable {
         case setInitialToken(initialToken: String)
         case getToken
+        case refreshToken
     }
 
     var receivedMessages = [Message]()
     var tokenToBeReturned: String?
+    var refreshTokenToBeReturned: String?
 
     // MARK: - Methods
 
@@ -20,5 +22,10 @@ final class TokenManagerSpy: TokenManagerProtocol {
     func getToken(completion: @escaping (String?) -> Void) {
         receivedMessages.append(.getToken)
         completion(tokenToBeReturned)
+    }
+
+    func refreshToken(completion: @escaping (String?) -> Void) {
+        receivedMessages.append(.refreshToken)
+        completion(refreshTokenToBeReturned)
     }
 }

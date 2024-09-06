@@ -6,8 +6,7 @@ public enum ResponseResult {
 }
 
 public protocol NetworkManagerProtocol {
-//    static var shared: NetworkManager { get }
-
     func request(with config: RequestConfigProtocol,
                  completion: @escaping (ResponseResult) -> Void)
+    func setInitialToken(_ token: String)
 }

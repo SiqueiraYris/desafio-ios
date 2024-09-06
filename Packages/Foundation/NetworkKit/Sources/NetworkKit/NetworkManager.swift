@@ -3,32 +3,51 @@ import Foundation
 public final class NetworkManager: NetworkManagerProtocol {
     private let session: URLSessionProtocol
     private let queue: DispatchQueueProtocol
+    private let tokenManager: TokenManagerProtocol
 
-    public static var shared = NetworkManager()
+    public static var shared = NetworkManager(tokenManager: TokenManager.shared)
 
-    public convenience init(urlSession: URLSessionProtocol) {
-        self.init(session: urlSession)
+    public convenience init(urlSession: URLSessionProtocol, tokenManager: TokenManagerProtocol) {
+        self.init(session: urlSession, tokenManager: tokenManager)
     }
 
     init(
         session: URLSessionProtocol = URLSession.shared,
-        queue: DispatchQueueProtocol = DispatchQueue.main
+        queue: DispatchQueueProtocol = DispatchQueue.main,
+        tokenManager: TokenManagerProtocol
     ) {
         self.session = session
         self.queue = queue
+        self.tokenManager = tokenManager
     }
 
     public func request(with config: RequestConfigProtocol, completion: @escaping (ResponseResult) -> Void) {
-        guard let urlRequest = config.createUrlRequest() else {
+        if config.refreshTokenEnabled {
+            tokenManager.getToken { [weak self] token in
+                self?.makeRequest(with: config, and: token, completion: completion)
+            }
+        } else {
+            makeRequest(with: config, completion: completion)
+        }
+    }
+
+    public func setInitialToken(_ token: String) {
+        TokenManager.shared.setInitialToken(token)
+    }
+
+    private func makeRequest(
+        with config: RequestConfigProtocol,
+        and token: String? = nil,
+        completion: @escaping (ResponseResult) -> Void
+    ) {
+        guard let urlRequest = config.createUrlRequest(with: token) else {
             completion(.failure(ResponseError(error: .badRequest)))
             return
         }
-        
+
         curl(from: urlRequest, debug: config.debugMode)
 
-        let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
-            guard let self = self else { return }
-
+        let task = session.dataTask(with: urlRequest) { data, response, error in
             self.queue.async {
                 do {
                     if let nsError = error as NSError? {

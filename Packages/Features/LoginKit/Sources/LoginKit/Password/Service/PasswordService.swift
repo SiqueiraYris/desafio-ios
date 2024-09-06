@@ -28,7 +28,7 @@ final class PasswordService: PasswordServiceProtocol {
     func makeLogin(route: PasswordServiceRoute,
                    completion: @escaping (PasswordServiceResult) -> Void) {
         manager.request(with: route.config) { [weak self] managerResult in
-            guard self != nil else { return }
+            guard let self else { return }
 
             switch managerResult {
             case let .success(data):
@@ -36,6 +36,7 @@ final class PasswordService: PasswordServiceProtocol {
 
                 switch serviceResult {
                 case let.success(response as LoginModel):
+                    self.manager.setInitialToken(response.token)
                     completion(.success(response))
 
                 case let .failure(responseError):

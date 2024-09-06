@@ -16,7 +16,6 @@ final class PasswordViewModel: PasswordViewModelProtocol {
 
     private let coordinator: PasswordCoordinatorProtocol
     private let service: PasswordServiceProtocol
-    private let tokenManager: PasswordTokenProviderProtocol
     private let document: String
     private var password = ""
 
@@ -28,11 +27,9 @@ final class PasswordViewModel: PasswordViewModelProtocol {
 
     init(coordinator: PasswordCoordinatorProtocol,
          service: PasswordServiceProtocol,
-         tokenManager: PasswordTokenProviderProtocol,
          document: String) {
         self.coordinator = coordinator
         self.service = service
-        self.tokenManager = tokenManager
         self.document = document
     }
 
@@ -64,8 +61,7 @@ final class PasswordViewModel: PasswordViewModelProtocol {
             self.isLoading.value = false
 
             switch result {
-            case let .success(loginModel):
-                self.tokenManager.saveToken(token: loginModel.token)
+            case .success:
                 self.coordinator.openStatement()
 
             case let .failure(responseError):

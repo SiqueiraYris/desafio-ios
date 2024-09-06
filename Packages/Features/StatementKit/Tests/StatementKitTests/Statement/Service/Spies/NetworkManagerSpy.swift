@@ -7,6 +7,7 @@ final class NetworkManagerSpy: NetworkManagerProtocol {
 
     enum Message: Equatable {
         case request(result: StatementServiceResult)
+        case setInitialToken(token: String)
     }
 
     var receivedMessages = [Message]()
@@ -24,5 +25,9 @@ final class NetworkManagerSpy: NetworkManagerProtocol {
             self?.receivedMessages.append(.request(result: response))
         }
         completion(result!)
+    }
+
+    func setInitialToken(_ token: String) {
+        receivedMessages.append(.setInitialToken(token: token))
     }
 }

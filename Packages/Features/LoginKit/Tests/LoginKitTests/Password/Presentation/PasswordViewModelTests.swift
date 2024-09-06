@@ -7,7 +7,7 @@ final class PasswordViewModelTests: XCTestCase {
     // MARK: - Tests
 
     func test_validatePassword_withValidPassword_shouldEnableButtonAndUpdateDocument() {
-        let (sut, _, _, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
 
         sut.validatePassword(text: "123456")
 
@@ -16,7 +16,7 @@ final class PasswordViewModelTests: XCTestCase {
     }
 
     func test_validatePassword_withShortPassword_shouldNotEnableButtonAndUpdateDocument() {
-        let (sut, _, _, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
 
         sut.validatePassword(text: "123")
 
@@ -25,7 +25,7 @@ final class PasswordViewModelTests: XCTestCase {
     }
 
     func test_validatePassword_withNilText_shouldNotUpdateDocumentAndDisableButton() {
-        let (sut, _, _, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
 
         sut.validatePassword(text: nil)
 
@@ -37,7 +37,7 @@ final class PasswordViewModelTests: XCTestCase {
         let document = "12345678909"
         let password = "123456"
         let loginModel = LoginModel(token: "testToken")
-        let (sut, serviceSpy, coordinatorSpy, _) = makeSUT(document: document)
+        let (sut, serviceSpy, coordinatorSpy) = makeSUT(document: document)
 
         serviceSpy.completeWithSuccess(object: loginModel)
         sut.login(password: password)
@@ -51,7 +51,7 @@ final class PasswordViewModelTests: XCTestCase {
         let document = "12345678909"
         let password = "123456"
         let error = ResponseError.fixture()
-        let (sut, serviceSpy, coordinatorSpy, _) = makeSUT(document: document)
+        let (sut, serviceSpy, coordinatorSpy) = makeSUT(document: document)
 
         serviceSpy.completeWithError(error: error)
         sut.login(password: password)
@@ -62,7 +62,7 @@ final class PasswordViewModelTests: XCTestCase {
     }
 
     func test_login_withNilPassword_shouldNotCallServiceAndNotChangeLoadingState() {
-        let (sut, serviceSpy, _, _) = makeSUT()
+        let (sut, serviceSpy, _) = makeSUT()
 
         sut.login(password: nil)
 
@@ -71,7 +71,7 @@ final class PasswordViewModelTests: XCTestCase {
     }
 
     func test_getImage_whenIsSecureEntry_shouldDeliversCorrectImage() {
-        let (sut, serviceSpy, _, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
 
         let image = sut.getImage(isSecureTextEntry: true)
 
@@ -79,7 +79,7 @@ final class PasswordViewModelTests: XCTestCase {
     }
 
     func test_getImage_whenIsNotSecureEntry_shouldDeliversCorrectImage() {
-        let (sut, serviceSpy, _, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
 
         let image = sut.getImage(isSecureTextEntry: false)
 
@@ -91,24 +91,20 @@ final class PasswordViewModelTests: XCTestCase {
     private func makeSUT(document: String = "12345678909") -> (
         sut: PasswordViewModel,
         serviceSpy: PasswordServiceSpy,
-        coordinatorSpy: PasswordCoordinatorSpy,
-        tokenSpy: PasswordTokenProviderSpy
+        coordinatorSpy: PasswordCoordinatorSpy
     ) {
         let serviceSpy = PasswordServiceSpy()
         let coordinatorSpy = PasswordCoordinatorSpy()
-        let tokenSpy = PasswordTokenProviderSpy()
         let sut = PasswordViewModel(
             coordinator: coordinatorSpy,
             service: serviceSpy,
-            tokenManager: tokenSpy,
             document: document
         )
 
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(serviceSpy)
-        trackForMemoryLeaks(tokenSpy)
         trackForMemoryLeaks(coordinatorSpy)
 
-        return (sut, serviceSpy, coordinatorSpy, tokenSpy)
+        return (sut, serviceSpy, coordinatorSpy)
     }
 }

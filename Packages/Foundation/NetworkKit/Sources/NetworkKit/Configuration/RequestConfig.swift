@@ -9,6 +9,7 @@ public struct RequestConfig: RequestConfigProtocol {
     public var headers: [String: String]
     public var parametersEncoding: ParameterEncoding
     public var headerInterceptor: NetworkHeaderInterceptor?
+    public var refreshTokenEnabled: Bool
     public var debugMode: Bool
 
     public init(scheme: String = Constants.scheme,
@@ -19,6 +20,7 @@ public struct RequestConfig: RequestConfigProtocol {
                 parameters: [String: Any] = [:],
                 headers: [String: String] = [:],
                 headerInterceptor: NetworkHeaderInterceptor? = nil,
+                refreshTokenEnabled: Bool = false,
                 debugMode: Bool = false) {
         self.scheme = scheme
         self.host = host
@@ -28,6 +30,7 @@ public struct RequestConfig: RequestConfigProtocol {
         self.headers = headers
         self.parametersEncoding = encoding
         self.headerInterceptor = headerInterceptor
+        self.refreshTokenEnabled = refreshTokenEnabled
         self.debugMode = debugMode
     }
 }

@@ -1,20 +1,21 @@
 import NetworkKit
 
-enum ReceiptServiceRoute {
+enum ReceiptServiceRoute: Equatable {
     case getDetails(id: String)
-
-    func config(token: String) -> RequestConfigProtocol {
+    
+    var config: RequestConfigProtocol {
         switch self {
         case let .getDetails(id):
-            return setupRequest(id: id, token: token)
+            return setupRequest(id: id)
         }
     }
-
-    private func setupRequest(id: String, token: String) -> RequestConfigProtocol {
-        let parameters = ["token": token]
-        let config = RequestConfig(path: "/challenge/details/\(id)",
-                                   method: .get,
-                                   headers: parameters)
+    
+    private func setupRequest(id: String) -> RequestConfigProtocol {
+        let config = RequestConfig(
+            path: "/challenge/details/\(id)",
+            method: .get,
+            refreshTokenEnabled: true
+        )
         return config
     }
 }
