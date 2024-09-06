@@ -1,7 +1,7 @@
 import NetworkKit
 import TokenKit
 
-enum StatementServiceResult {
+enum StatementServiceResult: Equatable {
     case success(StatementModel)
     case failure(ResponseError)
 }
