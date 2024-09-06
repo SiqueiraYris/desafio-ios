@@ -70,29 +70,45 @@ final class PasswordViewModelTests: XCTestCase {
         XCTAssertFalse(sut.isLoading.value)
     }
 
+    func test_getImage_whenIsSecureEntry_shouldDeliversCorrectImage() {
+        let (sut, serviceSpy, _, _) = makeSUT()
+
+        let image = sut.getImage(isSecureTextEntry: true)
+
+        XCTAssertEqual(image, Images.eyeHidden)
+    }
+
+    func test_getImage_whenIsNotSecureEntry_shouldDeliversCorrectImage() {
+        let (sut, serviceSpy, _, _) = makeSUT()
+
+        let image = sut.getImage(isSecureTextEntry: false)
+
+        XCTAssertEqual(image, Images.eye)
+    }
+
     // MARK: - Helpers
 
     private func makeSUT(document: String = "12345678909") -> (
         sut: PasswordViewModel,
         serviceSpy: PasswordServiceSpy,
         coordinatorSpy: PasswordCoordinatorSpy,
-        storageSpy: PasswordStorageProviderSpy
+        tokenSpy: PasswordTokenProviderSpy
     ) {
         let serviceSpy = PasswordServiceSpy()
         let coordinatorSpy = PasswordCoordinatorSpy()
-        let storageSpy = PasswordStorageProviderSpy()
+        let tokenSpy = PasswordTokenProviderSpy()
         let sut = PasswordViewModel(
             coordinator: coordinatorSpy,
             service: serviceSpy,
-            storage: storageSpy,
+            tokenManager: tokenSpy,
             document: document
         )
 
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(serviceSpy)
-        trackForMemoryLeaks(storageSpy)
+        trackForMemoryLeaks(tokenSpy)
         trackForMemoryLeaks(coordinatorSpy)
 
-        return (sut, serviceSpy, coordinatorSpy, storageSpy)
+        return (sut, serviceSpy, coordinatorSpy, tokenSpy)
     }
 }

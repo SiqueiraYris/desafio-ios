@@ -1,4 +1,5 @@
 import DynamicKit
+import UIKit
 @testable import LoginKit
 
 final class PasswordViewModelSpy: PasswordViewModelProtocol {
@@ -11,9 +12,11 @@ final class PasswordViewModelSpy: PasswordViewModelProtocol {
     enum Message: Equatable {
         case validatePassword(text: String?)
         case login(password: String?)
+        case getImage(isSecureTextEntry: Bool)
     }
 
     var receivedMessages = [Message]()
+    var imageToBeReturned: UIImage?
 
     // MARK: - Methods
 
@@ -23,5 +26,10 @@ final class PasswordViewModelSpy: PasswordViewModelProtocol {
 
     func login(password: String?) {
         receivedMessages.append(.login(password: password))
+    }
+
+    func getImage(isSecureTextEntry: Bool) -> UIImage? {
+        receivedMessages.append(.getImage(isSecureTextEntry: isSecureTextEntry))
+        return imageToBeReturned
     }
 }

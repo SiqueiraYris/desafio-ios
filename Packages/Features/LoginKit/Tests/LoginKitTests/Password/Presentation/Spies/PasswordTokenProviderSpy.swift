@@ -1,6 +1,6 @@
 @testable import LoginKit
 
-final class PasswordStorageProviderSpy: PasswordTokenProviderProtocol {
+final class PasswordTokenProviderSpy: PasswordTokenProviderProtocol {
     // MARK: - Properties
     
     enum Message: Equatable {

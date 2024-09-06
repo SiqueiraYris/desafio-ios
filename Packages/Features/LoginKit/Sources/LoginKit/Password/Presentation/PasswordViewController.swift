@@ -16,11 +16,6 @@ final class PasswordViewController: UIViewController {
         textField.tintColor = Color.offBlack
         textField.font = .regular(size: .x22)
         textField.isSecureTextEntry = true
-//        let iconView = UIImageView(image: Images.eyeHidden)
-//        iconView.contentMode = .scaleAspectFit
-//        iconView.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-//        textField.rightView = iconView
-//        textField.rightViewMode = .always
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()

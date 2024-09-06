@@ -1,32 +1,46 @@
 import XCTest
+import TokenKit
 @testable import LoginKit
 
-final class PasswordStorageProviderTests: XCTestCase {
+final class PasswordTokenProviderTests: XCTestCase {
     // MARK: - Tests
 
-    func test_saveToken_shouldSaveTokenToKeychain() {
-        let (sut, storageManagerSpy) = makeSUT()
-        let token = "any-token"
+    func test_saveToken_shouldCallSetInitialTokenOnManager() {
+        let (sut, tokenManagerSpy) = makeSUT()
 
-        sut.saveToken(token: token)
+        sut.saveToken(token: "sample_token")
 
-        XCTAssertEqual(storageManagerSpy.receivedMessages, [
-            .save(storage: .keychain, key: "auth-token")
-        ])
+        XCTAssertEqual(tokenManagerSpy.receivedMessages, [.setInitialToken(initialToken: "sample_token")])
+    }
+
+    func test_saveToken_withEmptyToken_shouldCallSetInitialTokenOnManagerWithEmptyString() {
+        let (sut, tokenManagerSpy) = makeSUT()
+
+        sut.saveToken(token: "")
+
+        XCTAssertEqual(tokenManagerSpy.receivedMessages, [.setInitialToken(initialToken: "")])
+    }
+
+    func test_saveToken_shouldNotCallGetTokenOnManager() {
+        let (sut, tokenManagerSpy) = makeSUT()
+
+        sut.saveToken(token: "sample_token")
+
+        XCTAssertFalse(tokenManagerSpy.receivedMessages.contains(.getToken))
     }
 
     // MARK: - Helpers
 
     private func makeSUT() -> (
         sut: PasswordTokenProvider,
-        storageManagerSpy: StorageManagerSpy
+        tokenManagerSpy: TokenManagerSpy
     ) {
-        let storageManagerSpy = StorageManagerSpy()
-        let sut = PasswordTokenProvider(storageManager: storageManagerSpy)
+        let tokenManagerSpy = TokenManagerSpy()
+        let sut = PasswordTokenProvider(manager: tokenManagerSpy)
 
         trackForMemoryLeaks(sut)
-        trackForMemoryLeaks(storageManagerSpy)
+        trackForMemoryLeaks(tokenManagerSpy)
 
-        return (sut, storageManagerSpy)
+        return (sut, tokenManagerSpy)
     }
 }

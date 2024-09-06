@@ -1,15 +1,13 @@
 # NetworkKit
 
-`NetworkKit` is a library designed to facilitate network request management in an application. It provides an interface for making network requests, managing sessions, handling header interceptors, and checking connectivity.
+`NetworkKit` is a library designed to facilitate network request management in an application. It provides an interface for making network requests, managing sessions and handling header interceptors.
 
 ## Architecture
 
-`NetworkManager` is the main class responsible for managing network requests. It uses a custom URL session, a dispatch queue, a token header interceptor, and a reachability checker to ensure requests are only made when there is an available connection.
+`NetworkManager` is the main class responsible for managing network requests. 
 
 ```swift
 public protocol NetworkManagerProtocol {
-    var isConnectionEnabled: Bool { get }
-
     func request(with config: RequestConfigProtocol,
                  completion: @escaping (ResponseResult) -> Void)
 }
@@ -29,12 +27,5 @@ NetworkManager.shared.request(with: config) { result in
         // Handle error
         print("Error: \(error)")
     }
-}
-
-// Checking connectivity
-if NetworkManager.shared.isConnectionEnabled {
-    print("Connection is enabled")
-} else {
-    print("No connection")
 }
 ```

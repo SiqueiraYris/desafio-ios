@@ -49,11 +49,6 @@ final class DefaultResultMapperTests: XCTestCase {
     }
 
     private func makeResponseError(data: Data?) -> ResponseError {
-        return ResponseError(
-            statusCode: nil,
-            data: data,
-            apiError: nil,
-            httpError: nil
-        )
+        return ResponseError(statusCode: nil, error: NetworkError.decoderFailure)
     }
 }
