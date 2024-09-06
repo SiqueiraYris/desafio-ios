@@ -70,8 +70,6 @@ public extension UIViewController {
         adjustConstraints(showingKeyboard: false, notification: notification)
     }
 
-    @objc open func animateKeyboard(withHeight height: CGFloat, showingKeyboard: Bool) { }
-
     private static let loaderTag = 999
 
     func showLoader() {
