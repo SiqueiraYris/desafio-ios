@@ -1,1 +1,4 @@
-struct StatementModel: Decodable, Equatable { }
+struct StatementModel: Decodable, Equatable {
+    let results: [StatementResult]
+    let itemsTotal: Int
+}

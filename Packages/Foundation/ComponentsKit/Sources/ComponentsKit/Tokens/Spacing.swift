@@ -3,6 +3,7 @@ import Foundation
 public struct Spacing {
     public static let x2 = CGFloat(2)
     public static let x4 = CGFloat(4)
+    public static let x6 = CGFloat(6)
     public static let x8 = CGFloat(8)
     public static let x12 = CGFloat(12)
     public static let x16 = CGFloat(16)

@@ -1,5 +1,6 @@
 import UIKit
 import RouterKit
+import StatementKit
 
 final class AppStarter {
     private let navigation = UINavigationController()

@@ -32,10 +32,10 @@ final class StatementService: StatementServiceProtocol {
                 let serviceResult = DefaultResultMapper.map(data, to: StatementModel.self)
 
                 switch serviceResult {
-                case .success(let response as StatementModel):
+                case let .success(response as StatementModel):
                     completion(.success(response))
 
-                case .failure(let responseError):
+                case let .failure(responseError):
                     completion(.failure(responseError))
 
                 default:
