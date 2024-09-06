@@ -18,11 +18,11 @@ final class PasswordStorageProviderTests: XCTestCase {
     // MARK: - Helpers
 
     private func makeSUT() -> (
-        sut: PasswordStorageProvider,
+        sut: PasswordTokenProvider,
         storageManagerSpy: StorageManagerSpy
     ) {
         let storageManagerSpy = StorageManagerSpy()
-        let sut = PasswordStorageProvider(storageManager: storageManagerSpy)
+        let sut = PasswordTokenProvider(storageManager: storageManagerSpy)
 
         trackForMemoryLeaks(sut)
         trackForMemoryLeaks(storageManagerSpy)

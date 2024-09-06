@@ -1,4 +1,5 @@
 import NetworkKit
+import TokenKit
 
 enum StatementServiceResult {
     case success(StatementModel)
@@ -13,37 +14,39 @@ final class StatementService: StatementServiceProtocol {
     // MARK: - Properties
 
     private let manager: NetworkManagerProtocol
+    private let tokenManager: TokenManagerProtocol
 
     // MARK: - Initializer
 
-    init(_ manager: NetworkManagerProtocol) {
+    init(_ manager: NetworkManagerProtocol, tokenManager: TokenManagerProtocol) {
         self.manager = manager
+        self.tokenManager = tokenManager
     }
 
     // MARK: - Methods
 
     func fetch(route: StatementServiceRoute,
                completion: @escaping (StatementServiceResult) -> Void) {
-        manager.request(with: route.config) { [weak self] managerResult in
-            guard self != nil else { return }
+        tokenManager.getToken { [weak self] token in
+            self?.manager.request(with: route.config(token: token ?? "")) { managerResult in
+                switch managerResult {
+                case let .success(data):
+                    let serviceResult = DefaultResultMapper.map(data, to: StatementModel.self)
 
-            switch managerResult {
-            case let .success(data):
-                let serviceResult = DefaultResultMapper.map(data, to: StatementModel.self)
+                    switch serviceResult {
+                    case let .success(response as StatementModel):
+                        completion(.success(response))
 
-                switch serviceResult {
-                case let .success(response as StatementModel):
-                    completion(.success(response))
+                    case let .failure(responseError):
+                        completion(.failure(responseError))
+
+                    default:
+                        completion(.failure(ResponseError(error: .unknownFailure)))
+                    }
 
                 case let .failure(responseError):
                     completion(.failure(responseError))
-
-                default:
-                    completion(.failure(ResponseError(error: .unknownFailure)))
                 }
-
-            case let .failure(responseError):
-                completion(.failure(responseError))
             }
         }
     }

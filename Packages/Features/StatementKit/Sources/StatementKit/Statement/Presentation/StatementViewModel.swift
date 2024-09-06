@@ -1,6 +1,5 @@
 import DynamicKit
 import UIKit
-import StorageKit
 
 protocol StatementViewModelProtocol {
     var isLoading: Dynamic<Bool> { get }

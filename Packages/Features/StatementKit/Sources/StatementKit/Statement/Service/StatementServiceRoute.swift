@@ -1,18 +1,16 @@
 import NetworkKit
-import StorageKit
 
 enum StatementServiceRoute {
     case getTransactions
 
-    var config: RequestConfigProtocol {
+    func config(token: String) -> RequestConfigProtocol {
         switch self {
         case .getTransactions:
-            return setupGetTransactionsRequest()
+            return setupGetTransactionsRequest(token: token)
         }
     }
 
-    private func setupGetTransactionsRequest() -> RequestConfigProtocol {
-        let token = StorageManager.shared.load(from: .keychain, withKey: "auth-token", toType: String.self) ?? ""
+    private func setupGetTransactionsRequest(token: String) -> RequestConfigProtocol {
         let parameters = ["token": token]
         let config = RequestConfig(path: "/challenge/list",
                                    method: .get,

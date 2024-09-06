@@ -19,7 +19,7 @@
 		A102F6BCC25B78EF63A74FD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CAAAE4B3B0B88CFC349117 /* SceneDelegate.swift */; };
 		A1939D3317D8952763477EBE /* LoginKit in Frameworks */ = {isa = PBXBuildFile; productRef = AAB3E429A99FE584B4D0DED9 /* LoginKit */; };
 		A5B8F49727864FEA3EDFC315 /* RouterKit in Frameworks */ = {isa = PBXBuildFile; productRef = 93AC31111D8A2E124BBFF1E7 /* RouterKit */; };
-		ABE07E5E0C2E684AA2C3BBA4 /* StorageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9D087F10BECF61A2C264518C /* StorageKit */; };
+		ABE07E5E0C2E684AA2C3BBA4 /* TokenKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4F01176FADC84508BDC05F35 /* TokenKit */; };
 		B43CE42C83D855EB6C9648FB /* DynamicKit in Frameworks */ = {isa = PBXBuildFile; productRef = B5AC25664390CC1F27245130 /* DynamicKit */; };
 		BCAB2644063DC1D7933C3080 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C1155776F51D6BD587108A /* AppDelegate.swift */; };
 		C1580156EB6389494B1F6C64 /* LauncherKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0EDB3C77203700C5B96D13B /* LauncherKit */; };
@@ -27,7 +27,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0603F16F4875FB751CCE9F8F /* StorageKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = StorageKit; path = Packages/Foundation/StorageKit; sourceTree = SOURCE_ROOT; };
 		0D52434E3BF1A4DA90245342 /* LoginKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LoginKit; path = Packages/Features/LoginKit; sourceTree = SOURCE_ROOT; };
 		1FE5728FA490E8F144FA1356 /* LauncherRouteDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherRouteDescriptor.swift; sourceTree = "<group>"; };
 		2397394DA93FDDDA140074AE /* StatementRouteDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementRouteDescriptor.swift; sourceTree = "<group>"; };
@@ -46,6 +45,7 @@
 		B838E0734D6170244BBBCB90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF2255300E0D089A3CB19CB5 /* DynamicKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DynamicKit; path = Packages/Foundation/DynamicKit; sourceTree = SOURCE_ROOT; };
 		D0C1155776F51D6BD587108A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EF2FDD8C3B99BB498B6AA77C /* TokenKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TokenKit; path = Packages/Foundation/TokenKit; sourceTree = SOURCE_ROOT; };
 		F007DCDDC89242435C489F98 /* DescriptorsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptorsManager.swift; sourceTree = "<group>"; };
 		FEB1ED77E97F2B341E7CDDF6 /* ChallengeApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ChallengeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -62,7 +62,7 @@
 				A1939D3317D8952763477EBE /* LoginKit in Frameworks */,
 				C1580156EB6389494B1F6C64 /* LauncherKit in Frameworks */,
 				7DCE22F039F95426FFD38129 /* StatementKit in Frameworks */,
-				ABE07E5E0C2E684AA2C3BBA4 /* StorageKit in Frameworks */,
+				ABE07E5E0C2E684AA2C3BBA4 /* TokenKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +163,7 @@
 				540398AB46877EFE5173D556 /* NetworkKit */,
 				62E6E7C16D6BC5953EAD1BA9 /* RouterKit */,
 				9CDD3DAD2C1E5E5EFE88A466 /* StatementKit */,
-				0603F16F4875FB751CCE9F8F /* StorageKit */,
+				EF2FDD8C3B99BB498B6AA77C /* TokenKit */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -192,7 +192,7 @@
 				AAB3E429A99FE584B4D0DED9 /* LoginKit */,
 				D0EDB3C77203700C5B96D13B /* LauncherKit */,
 				B78EC6EF06334FE4A761D8B6 /* StatementKit */,
-				9D087F10BECF61A2C264518C /* StorageKit */,
+				4F01176FADC84508BDC05F35 /* TokenKit */,
 			);
 			productName = ChallengeApp;
 			productReference = FEB1ED77E97F2B341E7CDDF6 /* ChallengeApp.app */;
@@ -226,7 +226,7 @@
 				8681B267E87DA382CA147A26 /* XCLocalSwiftPackageReference "Packages/Foundation/NetworkKit" */,
 				C9D5409796AF9C8FCCAB38A2 /* XCLocalSwiftPackageReference "Packages/Foundation/RouterKit" */,
 				126C4E898853908E5D67ADEA /* XCLocalSwiftPackageReference "Packages/Features/StatementKit" */,
-				2559EAAE79025FBA9ADEDA01 /* XCLocalSwiftPackageReference "Packages/Foundation/StorageKit" */,
+				5607B2B6DF67C1C0E0901445 /* XCLocalSwiftPackageReference "Packages/Foundation/TokenKit" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -464,10 +464,6 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Features/StatementKit;
 		};
-		2559EAAE79025FBA9ADEDA01 /* XCLocalSwiftPackageReference "Packages/Foundation/StorageKit" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Foundation/StorageKit;
-		};
 		386D5DC456DF35857CA2FFDF /* XCLocalSwiftPackageReference "Packages/Features/LauncherKit" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Features/LauncherKit;
@@ -475,6 +471,10 @@
 		38FC42C856C4390F15595149 /* XCLocalSwiftPackageReference "Packages/Foundation/ComponentsKit" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Foundation/ComponentsKit;
+		};
+		5607B2B6DF67C1C0E0901445 /* XCLocalSwiftPackageReference "Packages/Foundation/TokenKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Foundation/TokenKit;
 		};
 		8681B267E87DA382CA147A26 /* XCLocalSwiftPackageReference "Packages/Foundation/NetworkKit" */ = {
 			isa = XCLocalSwiftPackageReference;
@@ -499,6 +499,10 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkKit;
 		};
+		4F01176FADC84508BDC05F35 /* TokenKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TokenKit;
+		};
 		86321939128669A71E853EC1 /* ComponentsKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ComponentsKit;
@@ -506,10 +510,6 @@
 		93AC31111D8A2E124BBFF1E7 /* RouterKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RouterKit;
-		};
-		9D087F10BECF61A2C264518C /* StorageKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = StorageKit;
 		};
 		AAB3E429A99FE584B4D0DED9 /* LoginKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -5,7 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "NetworkKit",
-    defaultLocalization: LanguageTag(stringLiteral: "pt"),
     platforms: [.iOS(.v15)],
     products: [
         .library(

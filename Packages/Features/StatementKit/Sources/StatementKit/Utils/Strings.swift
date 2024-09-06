@@ -12,8 +12,7 @@ struct Strings {
     static let receiptDescriptionTitle = String(localized: "receipt.description.title", bundle: .module, comment: nil)
     static let receiptDescriptionText = String(localized: "receipt.description.text", bundle: .module, comment: nil)
     static let filterOptionAll = String(localized: "filter.option.all", bundle: .module, comment: nil)
-
-    static let filterOptionOutgoing = String(localized: "filter.outgoing.all", bundle: .module, comment: nil)
+    static let filterOptionOutgoing = String(localized: "filter.option.outgoing", bundle: .module, comment: nil)
     static let filterOptionIncoming = String(localized: "filter.option.incoming", bundle: .module, comment: nil)
     static let filterOptionFuture = String(localized: "filter.option.future", bundle: .module, comment: nil)
 }
