@@ -2,6 +2,7 @@ import UIKit
 
 protocol ReceiptCoordinatorProtocol { 
     func showErrorAlert(with message: String, retryAction: @escaping () -> Void)
+    func share(view: UIView)
 }
 
 final class ReceiptCoordinator: ReceiptCoordinatorProtocol {
@@ -39,5 +40,17 @@ final class ReceiptCoordinator: ReceiptCoordinatorProtocol {
         ))
 
         navigation?.present(alert, animated: true, completion: nil)
+    }
+
+    func share(view: UIView) {
+        let image = view.asImage()
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = view
+            popoverController.sourceRect = view.bounds
+        }
+
+        navigation?.present(activityViewController, animated: true, completion: nil)
     }
 }

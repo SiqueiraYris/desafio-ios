@@ -11,6 +11,12 @@ final class ReceiptViewController: UIViewController {
         return scrollView
     }()
 
+    private let icon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
     private let titleLabel: Label = {
         let label = Label(font: .bold(size: .x16))
         label.textColor = Color.offBlack
@@ -31,6 +37,8 @@ final class ReceiptViewController: UIViewController {
             size: .medium,
             title: Strings.receiptShareButtonTitle
         )
+        let image = Images.download?.withRenderingMode(.alwaysTemplate)
+        button.setRightImage(image, color: Color.offBlack)
         return button
     }()
 
@@ -91,6 +99,8 @@ final class ReceiptViewController: UIViewController {
         view.backgroundColor = .white
         title = Strings.receiptNavigationTitle
 
+        primaryButton.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
+
         setupViewHierarchy()
         setupViewConstraints()
     }
@@ -98,6 +108,7 @@ final class ReceiptViewController: UIViewController {
     private func setupViewHierarchy() {
         view.addSubview(scrollView)
         view.addSubview(primaryButton)
+        scrollView.addSubview(icon)
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(itemsStackView)
     }
@@ -109,8 +120,13 @@ final class ReceiptViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: primaryButton.topAnchor, constant: -Spacing.x24),
 
+            icon.widthAnchor.constraint(equalToConstant: 24),
+            icon.heightAnchor.constraint(equalToConstant: 24),
+            icon.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            icon.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+
             titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Spacing.x32),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            titleLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: Spacing.x8),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.x24),
 
             itemsStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Spacing.x24),
@@ -127,11 +143,18 @@ final class ReceiptViewController: UIViewController {
     private func makeViews(viewObject: ReceiptViewObject?) {
         guard let viewObject else { return }
         titleLabel.text = viewObject.title
+        icon.image = viewObject.icon
 
         itemsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         viewObject.items.forEach {
             itemsStackView.addArrangedSubview($0)
         }
+    }
+
+    // MARK: - Actions
+
+    @objc private func didTapShare() {
+        viewModel.share(view: scrollView)
     }
 }

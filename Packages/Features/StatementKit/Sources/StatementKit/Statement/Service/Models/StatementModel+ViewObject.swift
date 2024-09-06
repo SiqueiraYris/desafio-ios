@@ -30,22 +30,14 @@ extension StatementModel {
     }
 
     private func icon(for entry: String) -> UIImage? {
-        return Images.arrowDown
-//        switch entry {
-//        case "DEBIT":
-//            return UIImage(systemName: "arrow.up.circle") // Exemplo de ícone para débito
-//        case "CREDIT":
-//            return UIImage(systemName: "arrow.down.circle") // Exemplo de ícone para crédito
-//        case "REVERSAL":
-//            return UIImage(systemName: "arrow.left.arrow.right.circle") // Exemplo de ícone para estorno
-//        case "BOLETO":
-//            return UIImage(systemName: "barcode.viewfinder") // Exemplo de ícone para boleto
-//        default:
-//            return nil
-//        }
+        let type = EntryType(rawValue: entry)
+
+        if type == .credit {
+            return Images.arrowDown
+        }
+
+        return Images.arrowUpOut
     }
-
-
 
     private func getSubtitleColor(entry: String) -> UIColor {
         switch EntryType(rawValue: entry) {

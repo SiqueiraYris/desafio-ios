@@ -37,6 +37,16 @@ extension ReceiptModel {
             )
         ]
     }
+//
+//    private func getImage() -> UIImage {
+////        let type = EntryType(rawValue: entry)
+////
+////        if type == .credit {
+////            return Images.arrowDown
+////        }
+////
+////        return Images.arrowUpOut
+//    }
 
     private func makeItemsView(items: [ReceiptViewObject.Item]) -> [ItemView] {
         let item = items.map {

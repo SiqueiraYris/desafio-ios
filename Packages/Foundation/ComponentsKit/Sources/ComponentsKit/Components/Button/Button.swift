@@ -36,12 +36,16 @@ public final class Button: UIButton {
         }
     }
 
-    public func setRightImage(_ image: UIImage?) {
+    public func setRightImage(_ image: UIImage?, color: UIColor? = nil) {
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Spacing.x24).isActive = true
         imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+
+        if let color = color {
+            imageView.tintColor = color
+        }
     }
 
     private func setupViewStyle() {

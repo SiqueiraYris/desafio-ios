@@ -16,11 +16,11 @@ final class PasswordViewController: UIViewController {
         textField.tintColor = Color.offBlack
         textField.font = .regular(size: .x22)
         textField.isSecureTextEntry = true
-        let iconView = UIImageView(image: Images.eyeHidden)
-        iconView.contentMode = .scaleAspectFit
-        iconView.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-        textField.rightView = iconView
-        textField.rightViewMode = .always
+//        let iconView = UIImageView(image: Images.eyeHidden)
+//        iconView.contentMode = .scaleAspectFit
+//        iconView.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+//        textField.rightView = iconView
+//        textField.rightViewMode = .always
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -88,6 +88,7 @@ final class PasswordViewController: UIViewController {
         registerKeyboardNotifications()
         setupBindings()
         setupViewStyle()
+        setupField()
     }
 
     private func setupBindings() {
@@ -158,6 +159,17 @@ final class PasswordViewController: UIViewController {
         textField.becomeFirstResponder()
     }
 
+    private func setupField() {
+        let iconView = UIImageView(image: Images.eyeHidden)
+        iconView.contentMode = .scaleAspectFit
+        iconView.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        iconView.isUserInteractionEnabled = true
+        textField.rightView = iconView
+        textField.rightViewMode = .always
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapViewPassword))
+        iconView.addGestureRecognizer(tapGesture)
+    }
+
     // MARK: - Actions
 
     @objc private func textFieldDidChange(_ textField: UITextField) {
@@ -166,5 +178,15 @@ final class PasswordViewController: UIViewController {
 
     @objc private func didTapPrimaryButton() {
         viewModel.login(password: textField.text)
+    }
+
+    @objc private func didTapViewPassword() {
+        textField.isSecureTextEntry.toggle()
+        if let iconView = textField.rightView as? UIImageView {
+            let image = viewModel.getImage(
+                isSecureTextEntry: textField.isSecureTextEntry
+            )
+            iconView.image = image
+        }
     }
 }

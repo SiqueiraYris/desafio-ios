@@ -1,10 +1,12 @@
 import DynamicKit
+import UIKit
 
 protocol ReceiptViewModelProtocol {
     var isLoading: Dynamic<Bool> { get }
     var viewObject: Dynamic<ReceiptViewObject?> { get }
 
     func fetch()
+    func share(view: UIView)
 }
 
 final class ReceiptViewModel: ReceiptViewModelProtocol {
@@ -46,5 +48,9 @@ final class ReceiptViewModel: ReceiptViewModelProtocol {
                 }
             }
         }
+    }
+
+    func share(view: UIView) {
+        coordinator.share(view: view)
     }
 }

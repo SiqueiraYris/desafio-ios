@@ -1,4 +1,5 @@
 import DynamicKit
+import UIKit
 
 protocol PasswordViewModelProtocol {
     var isLoading: Dynamic<Bool> { get }
@@ -7,6 +8,7 @@ protocol PasswordViewModelProtocol {
 
     func validatePassword(text: String?)
     func login(password: String?)
+    func getImage(isSecureTextEntry: Bool) -> UIImage?
 }
 
 final class PasswordViewModel: PasswordViewModelProtocol {
@@ -72,5 +74,9 @@ final class PasswordViewModel: PasswordViewModelProtocol {
                 }
             }
         }
+    }
+
+    func getImage(isSecureTextEntry: Bool) -> UIImage? {
+        return isSecureTextEntry ? Images.eyeHidden : Images.eye
     }
 }
