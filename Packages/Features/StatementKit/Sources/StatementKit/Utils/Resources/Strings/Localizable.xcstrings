@@ -34,6 +34,50 @@
         }
       }
     },
+    "filter.option.all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tudo"
+          }
+        }
+      }
+    },
+    "filter.option.future" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Futuro"
+          }
+        }
+      }
+    },
+    "filter.option.incoming" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrada"
+          }
+        }
+      }
+    },
+    "filter.option.outgoing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saída"
+          }
+        }
+      }
+    },
     "receipt.date.title" : {
       "extractionState" : "manual",
       "localizations" : {

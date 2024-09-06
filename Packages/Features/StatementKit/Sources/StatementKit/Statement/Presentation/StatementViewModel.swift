@@ -12,6 +12,7 @@ protocol StatementViewModelProtocol {
     func numberOfRowsInSection(section: Int) -> Int
     func cellForRowAt(indexPath: IndexPath) -> StatementViewObject.Row?
     func didSelectRowAt(indexPath: IndexPath)
+    func didSelectFilter(filter: FilterType)
 }
 
 final class StatementViewModel: StatementViewModelProtocol {
@@ -77,5 +78,9 @@ final class StatementViewModel: StatementViewModelProtocol {
             safe: indexPath.section
         ]?.rows[safe: indexPath.row]?.id else { return }
         coordinator.openDetails(id: id)
+    }
+
+    func didSelectFilter(filter: FilterType) {
+        
     }
 }

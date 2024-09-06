@@ -4,6 +4,8 @@ import ComponentsKit
 final class StatementViewController: UIViewController {
     // MARK: - Views
 
+    private let filterView = FilterView()
+
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TransactionCell.self, forCellReuseIdentifier: TransactionCell.reuseIdentifier)
@@ -88,12 +90,18 @@ final class StatementViewController: UIViewController {
     }
 
     private func setupViewHierarchy() {
+        view.addSubview(filterView)
         view.addSubview(tableView)
     }
 
     private func setupViewConstraints() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            filterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            filterView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            filterView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            filterView.heightAnchor.constraint(equalToConstant: 50),
+
+            tableView.topAnchor.constraint(equalTo: filterView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -161,5 +169,13 @@ extension StatementViewController: UITableViewDelegate {
         let header = TransactionHeaderView()
         header.setupViewObject(title: viewModel.getSectionTitle(section: section))
         return header
+    }
+}
+
+// MARK: - FilterViewDelegate
+
+extension StatementViewController: FilterViewDelegate {
+    func filterView(didSelectFilter filter: FilterType) {
+        viewModel.didSelectFilter(filter: filter)
     }
 }

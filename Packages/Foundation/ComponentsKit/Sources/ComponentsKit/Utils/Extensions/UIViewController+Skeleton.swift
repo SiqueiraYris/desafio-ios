@@ -4,8 +4,6 @@ public extension UIViewController {
     struct SkeletonViewConstants {
         public static let largeHeight: CGFloat = 38
         public static let smallHeight: CGFloat = 16
-        public static let largeWidth: CGFloat = 232
-        public static let smallWidth: CGFloat = 165
         public static let spacing: CGFloat = 16
         public static let pairPadding: CGFloat = 12
         public static let numberOfPairs = 5
@@ -21,13 +19,11 @@ public extension UIViewController {
             let largeSkeletonView = SkeletonView()
             largeSkeletonView.translatesAutoresizingMaskIntoConstraints = false
             largeSkeletonView.heightAnchor.constraint(equalToConstant: SkeletonViewConstants.largeHeight).isActive = true
-            largeSkeletonView.widthAnchor.constraint(equalToConstant: SkeletonViewConstants.largeWidth).isActive = true
             skeletonViews.append(largeSkeletonView)
 
             let smallSkeletonView = SkeletonView()
             smallSkeletonView.translatesAutoresizingMaskIntoConstraints = false
             smallSkeletonView.heightAnchor.constraint(equalToConstant: SkeletonViewConstants.smallHeight).isActive = true
-            smallSkeletonView.widthAnchor.constraint(equalToConstant: SkeletonViewConstants.smallWidth).isActive = true
             skeletonViews.append(smallSkeletonView)
 
             if i < numberOfPairs - 1 {
