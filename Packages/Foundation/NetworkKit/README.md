@@ -8,7 +8,6 @@
 
 ```swift
 public protocol NetworkManagerProtocol {
-    static var shared: NetworkManager { get }
     var isConnectionEnabled: Bool { get }
 
     func request(with config: RequestConfigProtocol,

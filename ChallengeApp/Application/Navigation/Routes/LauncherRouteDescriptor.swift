@@ -1,7 +1,6 @@
 import UIKit
 import RouterKit
 import LauncherKit
-import StatementKit
 
 final class LauncherRouteDescriptor: RouteDescriptor {
     init() {}
@@ -12,6 +11,5 @@ final class LauncherRouteDescriptor: RouteDescriptor {
 
     func start(url: URL, on navigator: UINavigationController?) { 
         LauncherComposer.startScene(navigator)
-//        StatementComposer.startScene(navigator)
     }
 }
