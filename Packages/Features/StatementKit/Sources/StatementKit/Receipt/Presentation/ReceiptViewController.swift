@@ -1,7 +1,38 @@
 import UIKit
+import ComponentsKit
 
 final class ReceiptViewController: UIViewController {
     // MARK: - Views
+
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    private let titleLabel: Label = {
+        let label = Label(font: .bold(size: .x16))
+        label.textColor = Color.offBlack
+        return label
+    }()
+
+    private let itemsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    private let primaryButton: Button = {
+        let button = Button(
+            style: .primaryDark,
+            size: .medium,
+            title: Strings.receiptShareButtonTitle
+        )
+        return button
+    }()
 
     // MARK: - Properties
 
@@ -22,30 +53,77 @@ final class ReceiptViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Life Cycle
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        setupNavigationBar()
+    }
+
     // MARK: - Methods
 
     private func setup() {
         setupBindings()
         setupViewStyle()
+        viewModel.fetch()
     }
 
     private func setupBindings() {
-        // it calls view model to perform APIs calls and listen to view objects
+        viewModel.isLoading.bind { [weak self] isLoading in
+//            isLoading ? self?.showLoader2() : self?.hideLoader()
+        }
+
+        viewModel.viewObject.bind { [weak self] viewObject in
+            self?.makeViews(viewObject: viewObject)
+        }
     }
 
     private func setupViewStyle() {
         view.backgroundColor = .white
+        title = Strings.receiptNavigationTitle
 
         setupViewHierarchy()
         setupViewConstraints()
     }
 
     private func setupViewHierarchy() {
-//        view.addSubview()
+        view.addSubview(scrollView)
+        view.addSubview(primaryButton)
+        scrollView.addSubview(titleLabel)
+        scrollView.addSubview(itemsStackView)
     }
 
     private func setupViewConstraints() {
-//        NSLayoutConstraint.activate([
-//        ])
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: primaryButton.topAnchor, constant: -Spacing.x24),
+
+            titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Spacing.x32),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.x24),
+
+            itemsStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Spacing.x24),
+            itemsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            itemsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.x24),
+            itemsStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -Spacing.x24),
+
+            primaryButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Spacing.x24),
+            primaryButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Spacing.x24),
+            primaryButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Spacing.x24)
+        ])
+    }
+
+    private func makeViews(viewObject: ReceiptViewObject?) {
+        guard let viewObject else { return }
+        titleLabel.text = viewObject.title
+
+        itemsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        viewObject.items.forEach {
+            itemsStackView.addArrangedSubview($0)
+        }
     }
 }

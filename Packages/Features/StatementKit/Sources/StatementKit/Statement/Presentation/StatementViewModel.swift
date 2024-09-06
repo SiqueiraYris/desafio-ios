@@ -36,8 +36,7 @@ final class StatementViewModel: StatementViewModelProtocol {
     // MARK: - Methods
 
     func fetch() {
-        let token = StorageManager.shared.load(from: .keychain, withKey: "auth-token", toType: String.self) ?? ""
-        let route = StatementServiceRoute.getTransactions(token: token)
+        let route = StatementServiceRoute.getTransactions
         service.fetch(route: route) { [weak self] result in
             guard let self else { return }
 

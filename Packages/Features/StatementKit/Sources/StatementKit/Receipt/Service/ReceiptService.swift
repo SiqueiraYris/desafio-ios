@@ -24,18 +24,16 @@ final class ReceiptService: ReceiptServiceProtocol {
 
     func fetch(route: ReceiptServiceRoute,
                completion: @escaping (ReceiptServiceResult) -> Void) {
-        manager.request(with: route.config) { [weak self] managerResult in
-            guard self != nil else { return }
-
+        manager.request(with: route.config) { managerResult in
             switch managerResult {
             case let .success(data):
                 let serviceResult = DefaultResultMapper.map(data, to: ReceiptModel.self)
 
                 switch serviceResult {
-                case .success(let response as ReceiptModel):
+                case let .success(response as ReceiptModel):
                     completion(.success(response))
 
-                case .failure(let responseError):
+                case let .failure(responseError):
                     completion(.failure(responseError))
 
                 default:

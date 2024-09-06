@@ -23,7 +23,7 @@ final class StatementCoordinator: StatementCoordinatorProtocol {
     }
 
     func openDetails(id: String) {
-
+        ReceiptComposer.startScene(navigation, id: id)
     }
 
     func showErrorAlert(with message: String, retryAction: @escaping () -> Void) {

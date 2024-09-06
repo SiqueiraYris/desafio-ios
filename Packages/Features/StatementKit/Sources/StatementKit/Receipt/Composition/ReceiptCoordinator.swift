@@ -1,6 +1,8 @@
 import UIKit
 
-protocol ReceiptCoordinatorProtocol { }
+protocol ReceiptCoordinatorProtocol { 
+    func showErrorAlert(with message: String, retryAction: @escaping () -> Void)
+}
 
 final class ReceiptCoordinator: ReceiptCoordinatorProtocol {
     // MARK: - Properties
@@ -17,5 +19,25 @@ final class ReceiptCoordinator: ReceiptCoordinatorProtocol {
 
     func start(viewController: UIViewController) {
         navigation?.pushViewController(viewController, animated: true)
+    }
+
+    func showErrorAlert(with message: String, retryAction: @escaping () -> Void) {
+        let alert = UIAlertController(
+            title: Strings.errorGenericTitle,
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(
+            title: Strings.tryAgainButton,
+            style: .default
+        ) { _ in
+            retryAction()
+        })
+        alert.addAction(UIAlertAction(
+            title: Strings.closeButton,
+            style: .cancel
+        ))
+
+        navigation?.present(alert, animated: true, completion: nil)
     }
 }
