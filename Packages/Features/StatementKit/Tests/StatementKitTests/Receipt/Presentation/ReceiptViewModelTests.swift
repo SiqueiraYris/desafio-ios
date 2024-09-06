@@ -8,6 +8,7 @@ final class ReceiptViewModelTests: XCTestCase {
 
     func test_fetch_withSuccessfulResponse_shouldUpdateViewObject() {
         let receiptModel = ReceiptModel.fixture()
+        let type = "any-type"
         let (sut, serviceSpy, _) = makeSUT()
 
         serviceSpy.completeWithSuccess(object: receiptModel)
@@ -20,9 +21,9 @@ final class ReceiptViewModelTests: XCTestCase {
             return
         }
 
-        XCTAssertEqual(viewObject.title, receiptModel.toViewObject().title)
-        XCTAssertEqual(viewObject.items.count, receiptModel.toViewObject().items.count)
-        XCTAssertEqual(viewObject.icon, receiptModel.toViewObject().icon)
+        XCTAssertEqual(viewObject.title, receiptModel.toViewObject(type: type).title)
+        XCTAssertEqual(viewObject.items.count, receiptModel.toViewObject(type: type).items.count)
+        XCTAssertEqual(viewObject.icon, receiptModel.toViewObject(type: type).icon)
     }
 
     func test_fetch_withFailureResponse_shouldShowErrorAlert() {
@@ -47,7 +48,7 @@ final class ReceiptViewModelTests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func makeSUT(id: String = "any-id") -> (
+    private func makeSUT(id: String = "any-id", type: String = "any-type") -> (
         sut: ReceiptViewModel,
         serviceSpy: ReceiptServiceSpy,
         coordinatorSpy: ReceiptCoordinatorSpy
@@ -57,7 +58,8 @@ final class ReceiptViewModelTests: XCTestCase {
         let sut = ReceiptViewModel(
             coordinator: coordinatorSpy,
             service: serviceSpy,
-            id: id
+            id: id, 
+            type: type
         )
 
         trackForMemoryLeaks(sut)

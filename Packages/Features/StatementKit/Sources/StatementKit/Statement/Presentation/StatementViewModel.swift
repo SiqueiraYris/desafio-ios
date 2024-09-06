@@ -73,13 +73,13 @@ final class StatementViewModel: StatementViewModelProtocol {
     }
 
     func didSelectRowAt(indexPath: IndexPath) {
-        guard let id = viewObject?.sections[
+        guard let item = viewObject?.sections[
             safe: indexPath.section
-        ]?.rows[safe: indexPath.row]?.id else { return }
-        coordinator.openDetails(id: id)
+        ]?.rows[safe: indexPath.row] else { return }
+        coordinator.openDetails(id: item.id, type: item.type)
     }
-
+    
     func didSelectFilter(filter: FilterType) {
-        
+
     }
 }

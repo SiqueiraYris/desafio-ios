@@ -15,6 +15,7 @@ final class ReceiptViewModel: ReceiptViewModelProtocol {
     private let coordinator: ReceiptCoordinatorProtocol
     private let service: ReceiptServiceProtocol
     private let id: String
+    private let type: String
 
     var isLoading = Dynamic(false)
     var viewObject: Dynamic<ReceiptViewObject?> = Dynamic(nil)
@@ -23,10 +24,12 @@ final class ReceiptViewModel: ReceiptViewModelProtocol {
 
     init(coordinator: ReceiptCoordinatorProtocol,
          service: ReceiptServiceProtocol,
-         id: String) {
+         id: String,
+         type: String) {
         self.coordinator = coordinator
         self.service = service
         self.id = id
+        self.type = type
     }
 
     // MARK: - Methods
@@ -40,7 +43,7 @@ final class ReceiptViewModel: ReceiptViewModelProtocol {
 
             switch result {
             case let .success(receiptModel):
-                self.viewObject.value = receiptModel.toViewObject()
+                self.viewObject.value = receiptModel.toViewObject(type: self.type)
 
             case let .failure(responseError):
                 self.coordinator.showErrorAlert(with: responseError.responseErrorMessage) {

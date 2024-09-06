@@ -2,11 +2,11 @@ import UIKit
 import ComponentsKit
 
 extension ReceiptModel {
-    func toViewObject() -> ReceiptViewObject {
+    func toViewObject(type: String) -> ReceiptViewObject {
         let items = makeItems()
 
         return ReceiptViewObject(
-            icon: .add,
+            icon: getImage(type: type),
             title: label,
             items: makeItemsView(items: items)
         )
@@ -37,16 +37,16 @@ extension ReceiptModel {
             )
         ]
     }
-//
-//    private func getImage() -> UIImage {
-////        let type = EntryType(rawValue: entry)
-////
-////        if type == .credit {
-////            return Images.arrowDown
-////        }
-////
-////        return Images.arrowUpOut
-//    }
+
+    private func getImage(type: String) -> UIImage? {
+        let type = EntryType(rawValue: type)
+
+        if type == .credit {
+            return Images.arrowDown
+        }
+
+        return Images.arrowUpOut
+    }
 
     private func makeItemsView(items: [ReceiptViewObject.Item]) -> [ItemView] {
         let item = items.map {
@@ -138,29 +138,6 @@ extension ReceiptModel {
             bankText: bankText,
             accountText: accountText
         )
-
-//        let senderAttributes: [NSAttributedString.Key: Any] = [
-//            .font: UIFont.bold(size: .x16) as Any,
-//            .foregroundColor: Color.offBlack
-//        ]
-//
-//        let otherAttributes: [NSAttributedString.Key: Any] = [
-//            .font: UIFont.regular(size: .x14) as Any,
-//            .foregroundColor: Color.gray1
-//        ]
-//
-//        let senderAttributedString = NSAttributedString(string: senderNameText, attributes: senderAttributes)
-//        let documentAttributedString = NSAttributedString(string: documentText, attributes: otherAttributes)
-//        let bankAttributedString = NSAttributedString(string: bankText, attributes: otherAttributes)
-//        let accountAttributedString = NSAttributedString(string: accountText, attributes: otherAttributes)
-//
-//        let finalAttributedString = NSMutableAttributedString()
-//        finalAttributedString.append(senderAttributedString)
-//        finalAttributedString.append(documentAttributedString)
-//        finalAttributedString.append(bankAttributedString)
-//        finalAttributedString.append(accountAttributedString)
-//
-//        return finalAttributedString
     }
 
     private func makeDestination() -> NSAttributedString {

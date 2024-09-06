@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,7 +45,7 @@
 		BF2255300E0D089A3CB19CB5 /* DynamicKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DynamicKit; path = Packages/Foundation/DynamicKit; sourceTree = SOURCE_ROOT; };
 		D0C1155776F51D6BD587108A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F007DCDDC89242435C489F98 /* DescriptorsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptorsManager.swift; sourceTree = "<group>"; };
-		FEB1ED77E97F2B341E7CDDF6 /* ChallengeApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ChallengeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FEB1ED77E97F2B341E7CDDF6 /* Challenge App - Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Challenge App - Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 		3D51296ACF46A9490EDF2FA3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FEB1ED77E97F2B341E7CDDF6 /* ChallengeApp.app */,
+				FEB1ED77E97F2B341E7CDDF6 /* Challenge App - Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,7 +190,7 @@
 				B78EC6EF06334FE4A761D8B6 /* StatementKit */,
 			);
 			productName = ChallengeApp;
-			productReference = FEB1ED77E97F2B341E7CDDF6 /* ChallengeApp.app */;
+			productReference = FEB1ED77E97F2B341E7CDDF6 /* Challenge App - Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -201,8 +201,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = CD32237E06BE93073140E892 /* Build configuration list for PBXProject "ChallengeApp" */;
 			compatibilityVersion = "Xcode 14.0";

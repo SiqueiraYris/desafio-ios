@@ -4,7 +4,7 @@ final class StatementCoordinatorSpy: StatementCoordinatorProtocol {
     // MARK: - Properties
 
     enum Message: Equatable {
-        case openDetails(id: String)
+        case openDetails(id: String, type: String)
         case showErrorAlert(message: String)
     }
 
@@ -12,8 +12,8 @@ final class StatementCoordinatorSpy: StatementCoordinatorProtocol {
 
     // MARK: - Methods
 
-    func openDetails(id: String) {
-        receivedMessages.append(.openDetails(id: id))
+    func openDetails(id: String, type: String) {
+        receivedMessages.append(.openDetails(id: id, type: type))
     }
 
     func showErrorAlert(with message: String, retryAction: @escaping () -> Void) {

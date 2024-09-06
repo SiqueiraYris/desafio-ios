@@ -1,7 +1,7 @@
 import UIKit
 
 protocol StatementCoordinatorProtocol {
-    func openDetails(id: String)
+    func openDetails(id: String, type: String)
     func showErrorAlert(with message: String, retryAction: @escaping () -> Void)
 }
 
@@ -22,8 +22,8 @@ final class StatementCoordinator: StatementCoordinatorProtocol {
         navigation?.pushViewController(viewController, animated: true)
     }
 
-    func openDetails(id: String) {
-        ReceiptComposer.startScene(navigation, id: id)
+    func openDetails(id: String, type: String) {
+        ReceiptComposer.startScene(navigation, id: id, type: type)
     }
 
     func showErrorAlert(with message: String, retryAction: @escaping () -> Void) {

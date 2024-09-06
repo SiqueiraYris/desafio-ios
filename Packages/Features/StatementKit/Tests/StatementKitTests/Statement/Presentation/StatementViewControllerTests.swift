@@ -76,7 +76,8 @@ final class StatementViewControllerTests: XCTestCase {
         let (sut, viewModelSpy) = makeSUT()
 
         viewModelSpy.rowToBeReturned = StatementViewObject.Row(
-            id: "any-id",
+            id: "any-id", 
+            type: "any-type",
             icon: nil,
             title: nil,
             subtitle: nil,

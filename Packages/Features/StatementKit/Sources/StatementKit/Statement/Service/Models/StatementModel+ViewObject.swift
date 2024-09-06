@@ -12,7 +12,8 @@ extension StatementModel {
             let rows = result.items.map { item -> StatementViewObject.Row in
                 return StatementViewObject.Row(
                     id: item.id,
-                    icon: icon(for: item.entry), //missing
+                    type: item.entry,
+                    icon: icon(for: item.entry),
                     title: makeAttributedTitle(amount: item.amount, entry: item.entry),
                     subtitle: item.label,
                     subtitleColor: getSubtitleColor(entry: item.entry),

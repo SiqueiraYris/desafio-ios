@@ -86,7 +86,12 @@ final class StatementViewModelTests: XCTestCase {
 
         sut.didSelectRowAt(indexPath: IndexPath(row: 0, section: 0))
 
-        XCTAssertEqual(coordinatorSpy.receivedMessages, [.openDetails(id: statementModel.toViewObject().sections.first?.rows.first?.id ?? "")])
+        XCTAssertEqual(coordinatorSpy.receivedMessages, [
+            .openDetails(
+                id: statementModel.toViewObject().sections.first?.rows.first?.id ?? "",
+                type: statementModel.toViewObject().sections.first?.rows.first?.type ?? ""
+            )
+        ])
     }
 
     // MARK: - Helpers
