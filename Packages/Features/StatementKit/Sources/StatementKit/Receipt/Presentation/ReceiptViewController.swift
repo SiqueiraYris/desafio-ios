@@ -71,7 +71,15 @@ final class ReceiptViewController: UIViewController {
 
     private func setupBindings() {
         viewModel.isLoading.bind { [weak self] isLoading in
-//            isLoading ? self?.showLoader2() : self?.hideLoader()
+            guard let self else { return }
+
+            if isLoading {
+                self.showSkeletonLoader(in: self.view)
+                self.primaryButton.isHidden = true
+            } else {
+                self.hideSkeletonLoader()
+                self.primaryButton.isHidden = false
+            }
         }
 
         viewModel.viewObject.bind { [weak self] viewObject in

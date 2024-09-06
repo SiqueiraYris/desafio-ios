@@ -36,9 +36,12 @@ final class StatementViewModel: StatementViewModelProtocol {
     // MARK: - Methods
 
     func fetch() {
+        isLoading.value = true
+
         let route = StatementServiceRoute.getTransactions
         service.fetch(route: route) { [weak self] result in
             guard let self else { return }
+            self.isLoading.value = false
 
             switch result {
             case let .success(statementModel):

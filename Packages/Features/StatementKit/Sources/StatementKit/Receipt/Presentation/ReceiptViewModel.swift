@@ -34,6 +34,7 @@ final class ReceiptViewModel: ReceiptViewModelProtocol {
         let route = ReceiptServiceRoute.getDetails(id: id)
         service.fetch(route: route) { [weak self] result in
             guard let self else { return }
+            self.isLoading.value = false
 
             switch result {
             case let .success(receiptModel):

@@ -57,10 +57,15 @@ final class StatementViewController: UIViewController {
 
     private func setupBindings() {
         viewModel.isLoading.bind { [weak self] isLoading in
-            isLoading ? self?.showLoader2() : self?.hideLoader()
-
-            if !isLoading {
-                self?.refreshControl.endRefreshing()
+            guard let self else { return }
+            
+            if isLoading {
+                self.showSkeletonLoader(in: self.view)
+                self.tableView.isHidden = true
+            } else {
+                self.refreshControl.endRefreshing()
+                self.tableView.isHidden = false
+                self.hideSkeletonLoader()
             }
         }
 
@@ -156,89 +161,5 @@ extension StatementViewController: UITableViewDelegate {
         let header = TransactionHeaderView()
         header.setupViewObject(title: viewModel.getSectionTitle(section: section))
         return header
-    }
-}
-
-extension StatementViewController {
-
-
-    private func showLoader2() {
-        let numberOfSkeletons = 10 // Número de skeletons que você quer mostrar
-        var skeletonViews = [SkeletonView]()
-
-        for _ in 0..<numberOfSkeletons {
-            let skeletonView = SkeletonView()
-            skeletonView.translatesAutoresizingMaskIntoConstraints = false
-            skeletonView.heightAnchor.constraint(equalToConstant: 60).isActive = true // Define uma altura fixa
-            skeletonViews.append(skeletonView)
-        }
-
-        let stackView = UIStackView(arrangedSubviews: skeletonViews)
-        stackView.axis = .vertical
-        stackView.spacing = 16
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .clear
-
-        view.addSubview(stackView)
-        skeletonStackView = stackView // Guardar referência para remoção posterior
-
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
-
-        print("Loader is showing")
-    }
-
-    private func hideLoader2() {
-        print("Loader is hiding")
-        skeletonStackView?.removeFromSuperview()
-        skeletonStackView = nil
-    }
-}
-
-
-
-import UIKit
-
-final class SkeletonView: UIView {
-    private let gradientLayer = CAGradientLayer()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupGradientLayer()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupGradientLayer() {
-        gradientLayer.colors = [
-            UIColor(white: 0.85, alpha: 1).cgColor,
-            UIColor(white: 0.95, alpha: 1).cgColor,
-            UIColor(white: 0.85, alpha: 1).cgColor
-        ]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-        gradientLayer.frame = bounds
-        gradientLayer.locations = [0, 0.5, 1]
-        layer.addSublayer(gradientLayer)
-        startShimmerAnimation()
-    }
-
-    private func startShimmerAnimation() {
-        let shimmerAnimation = CABasicAnimation(keyPath: "locations")
-        shimmerAnimation.fromValue = [0, 0.5, 1]
-        shimmerAnimation.toValue = [1, 1.5, 2]
-        shimmerAnimation.duration = 1.5
-        shimmerAnimation.repeatCount = .infinity
-        gradientLayer.add(shimmerAnimation, forKey: "shimmerAnimation")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        gradientLayer.frame = bounds
     }
 }
