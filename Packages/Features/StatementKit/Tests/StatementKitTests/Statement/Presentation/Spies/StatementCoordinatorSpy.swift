@@ -1,3 +1,4 @@
+import UIKit
 @testable import StatementKit
 
 final class StatementCoordinatorSpy: StatementCoordinatorProtocol {
@@ -6,6 +7,7 @@ final class StatementCoordinatorSpy: StatementCoordinatorProtocol {
     enum Message: Equatable {
         case openDetails(id: String, type: String)
         case showErrorAlert(message: String)
+        case share(view: UIView)
     }
 
     var receivedMessages = [Message]()
@@ -18,5 +20,9 @@ final class StatementCoordinatorSpy: StatementCoordinatorProtocol {
 
     func showErrorAlert(with message: String, retryAction: @escaping () -> Void) {
         receivedMessages.append(.showErrorAlert(message: message))
+    }
+
+    func share(view: UIView) {
+        receivedMessages.append(.share(view: view))
     }
 }

@@ -12,7 +12,7 @@ final class StatementViewControllerTests: XCTestCase {
         XCTAssertFalse(mirror.filterView!.translatesAutoresizingMaskIntoConstraints)
 
         XCTAssertFalse(mirror.tableView!.translatesAutoresizingMaskIntoConstraints)
-        XCTAssertEqual(mirror.tableView?.backgroundColor, .clear)
+        XCTAssertEqual(mirror.tableView?.backgroundColor, Color.white)
 
         XCTAssertEqual(mirror.refreshControl?.tintColor, Color.primaryMain)
     }
@@ -27,11 +27,10 @@ final class StatementViewControllerTests: XCTestCase {
 
     func test_viewWillAppear_shouldSetupNavigationBarAndRightButton() {
         let (sut, _) = makeSUT()
+        
         sut.viewWillAppear(false)
 
         XCTAssertEqual(sut.title, Strings.statementNavigationTitle)
-        XCTAssertEqual(sut.navigationItem.rightBarButtonItem?.image, Images.share)
-        XCTAssertEqual(sut.navigationItem.rightBarButtonItem?.tintColor, Color.primaryMain)
     }
 
     func test_bindings_shouldHandleLoadingStateCorrectly() {

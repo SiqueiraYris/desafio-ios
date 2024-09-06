@@ -10,7 +10,7 @@ final class StatementViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(TransactionCell.self, forCellReuseIdentifier: TransactionCell.reuseIdentifier)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = Color.white
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -21,10 +21,12 @@ final class StatementViewController: UIViewController {
         return refreshControl
     }()
 
+    private var shareItem: UIBarButtonItem?
+
     // MARK: - Properties
 
     private let viewModel: StatementViewModelProtocol
-    private var skeletonStackView: UIStackView?
+
     // MARK: - Initializer
 
     init(with viewModel: StatementViewModelProtocol) {
@@ -46,7 +48,6 @@ final class StatementViewController: UIViewController {
         super.viewWillAppear(animated)
 
         setupNavigationBar()
-        setupRightButton()
     }
 
     // MARK: - Methods
@@ -73,6 +74,7 @@ final class StatementViewController: UIViewController {
 
         viewModel.shouldReloadData.bind { [weak self] isLoading in
             self?.tableView.reloadData()
+            self?.setupRightButton()
         }
     }
 
@@ -109,15 +111,15 @@ final class StatementViewController: UIViewController {
     }
 
     private func setupRightButton() {
-        let buttonItem = UIBarButtonItem(
+        shareItem = UIBarButtonItem(
             image: Images.share,
             style: .plain,
             target: self,
             action: #selector(didTapShareButton)
         )
-        buttonItem.tintColor = Color.primaryMain
+        shareItem?.tintColor = Color.primaryMain
 
-        navigationItem.rightBarButtonItem = buttonItem
+        navigationItem.rightBarButtonItem = shareItem
     }
 
     // MARK: - Actions
@@ -127,7 +129,7 @@ final class StatementViewController: UIViewController {
     }
 
     @objc private func didTapShareButton() {
-//        viewModel.openFavorites()
+        viewModel.share(view: tableView)
     }
 }
 

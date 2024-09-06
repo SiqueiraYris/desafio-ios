@@ -20,7 +20,7 @@ final class FilterView: UIView {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.distribution = .equalCentering
+        stackView.distribution = .fillProportionally
         stackView.spacing = 20
         return stackView
     }()
@@ -88,7 +88,7 @@ final class FilterView: UIView {
             stackView.trailingAnchor.constraint(equalTo: filterButton.leadingAnchor, constant: -Spacing.x16),
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
 
-            filterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Spacing.x16),
+            filterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Spacing.x24),
             filterButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             filterButton.widthAnchor.constraint(equalToConstant: 24),
             filterButton.heightAnchor.constraint(equalToConstant: 24)
@@ -108,6 +108,7 @@ final class FilterView: UIView {
         let buttons = [allButton, incomingButton, outgoingButton, futureButton]
         buttons.forEach { button in
             button.setTitleColor(Color.gray1, for: .normal)
+            button.titleLabel?.font = button.isSelected ? UIFont.bold(size: .x14) : UIFont.regular(size: .x14)
             let title = button.title(for: .normal) ?? ""
             button.setAttributedTitle(NSAttributedString(string: title), for: .normal)
         }
@@ -118,6 +119,7 @@ final class FilterView: UIView {
     @objc private func didTapButton(_ sender: UIButton) {
         resetButtonStyles()
 
+        sender.titleLabel?.font = UIFont.bold(size: .x14)
         sender.setTitleColor(Color.primaryMain, for: .normal)
         sender.addUnderline()
 

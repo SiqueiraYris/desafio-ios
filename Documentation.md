@@ -71,7 +71,7 @@ The application has three feature modules:
 - `NetworkKit`: unit tests are located in `NetworkKitTests`, the code coverage is 88%.
 - `LauncherKit`: unit tests are located in `LauncherKitTests`, the code coverage is 91%.
 - `LoginKit`: unit tests are located in `LoginKitTests`, the code coverage is 87%.
-- `StatementKit`: unit tests are located in `StatementKitTests`, the code coverage is 90%.
+- `StatementKit`: unit tests are located in `StatementKitTests`, the code coverage is 88%.
 
 ## Next steps
 

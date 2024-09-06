@@ -16,6 +16,7 @@ final class StatementViewModelSpy: StatementViewModelProtocol {
         case cellForRowAt(indexPath: IndexPath)
         case didSelectRowAt(indexPath: IndexPath)
         case didSelectFilter(filter: FilterType)
+        case share(view: UIView)
     }
 
     var receivedMessages = [Message]()
@@ -57,5 +58,9 @@ final class StatementViewModelSpy: StatementViewModelProtocol {
 
     func didSelectFilter(filter: FilterType) {
         receivedMessages.append(.didSelectFilter(filter: filter))
+    }
+
+    func share(view: UIView) {
+        receivedMessages.append(.share(view: view))
     }
 }

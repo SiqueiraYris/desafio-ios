@@ -12,6 +12,7 @@ protocol StatementViewModelProtocol {
     func cellForRowAt(indexPath: IndexPath) -> StatementViewObject.Row?
     func didSelectRowAt(indexPath: IndexPath)
     func didSelectFilter(filter: FilterType)
+    func share(view: UIView)
 }
 
 final class StatementViewModel: StatementViewModelProtocol {
@@ -39,7 +40,7 @@ final class StatementViewModel: StatementViewModelProtocol {
         isLoading.value = true
 
         let route = StatementServiceRoute.getTransactions
-        service.fetch(route: route) { [weak self] result in
+        self.service.fetch(route: route) { [weak self] result in
             guard let self else { return }
             self.isLoading.value = false
 
@@ -78,8 +79,12 @@ final class StatementViewModel: StatementViewModelProtocol {
         ]?.rows[safe: indexPath.row] else { return }
         coordinator.openDetails(id: item.id, type: item.type)
     }
-    
-    func didSelectFilter(filter: FilterType) {
 
+    func didSelectFilter(filter: FilterType) {
+        
+    }
+
+    func share(view: UIView) {
+        coordinator.share(view: view)
     }
 }
